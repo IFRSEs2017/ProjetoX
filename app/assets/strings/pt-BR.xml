@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xml>
+  <items>
+    <!-- Inicio das variaveis globais -->
+    <string name="app_title" value="Projeto X" />
+    <string name="email_label" value="Endereço de e-mail:" />
+    <string name="email_sample" value="Digite seu e-mail" />
+    <string name="password_label" value="Senha:" />
+    <string name="password_sample" value="Digite sua senha" />
+    <string name="password_forgot_label" value=" Esqueceu a senha?" />
+    <string name="login_label" value=" Entrar" />
+    <string name="logout_label" value="Sair"/>
+    <string name="please_login_label" value=" Por favor, faça login" />
+    <string name="wrong_email" value="O e-mail digitado não está cadastrado."/>
+    <string name="wrong_password" value="A senha digitada está incorreta."/>
+  </items>
+</xml>

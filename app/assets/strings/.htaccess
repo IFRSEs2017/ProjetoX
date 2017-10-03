@@ -1,0 +1,7 @@
+Order Allow,Deny 
+Deny from all 
+
+<FilesMatch "\.(xml)$">
+Order Deny,Allow
+   Allow from all
+</FilesMatch>

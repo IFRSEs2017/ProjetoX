@@ -1,0 +1,123 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>ProjetoX</Name>
+    <ProjectGuid>{0102dadc-f911-41e4-83ba-3976a8e6b5c1}</ProjectGuid>
+    <RootNamespace>
+    </RootNamespace>
+    <OutputType>Library</OutputType>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app\assets\favicon\.htaccess" />
+    <Compile Include="app\assets\favicon\favicon.ico" />
+    <Compile Include="app\assets\fonts\.htaccess" />
+    <Compile Include="app\assets\images\.htaccess" />
+    <Compile Include="app\assets\scripts\.htaccess" />
+    <Compile Include="app\assets\scripts\default.js" />
+    <Compile Include="app\assets\strings\pt-BR.xml" />
+    <Compile Include="app\assets\stylesheets\.htaccess" />
+    <Compile Include="app\configs\env\development\database.php" />
+    <Compile Include="app\configs\env\development\variables.php" />
+    <Compile Include="app\configs\env\environment.php" />
+    <Compile Include="app\configs\Config.php" />
+    <Compile Include="app\configs\env\production\database.php" />
+    <Compile Include="app\configs\env\production\variables.php" />
+    <Compile Include="app\controllers\ErrorController.php" />
+    <Compile Include="app\controllers\LoginController.php" />
+    <Compile Include="app\controllers\SiteController.php" />
+    <Compile Include="app\models\Password.php" />
+    <Compile Include="app\models\User.php" />
+    <Compile Include="app\utils\Helpers.php" />
+    <Compile Include="app\views\layouts\default.php" />
+    <Compile Include="app\views\pages\error.php" />
+    <Compile Include="app\views\pages\login.php" />
+    <Compile Include="app\views\pages\index.php" />
+    <Compile Include="pure\bases\Controller.php" />
+    <Compile Include="pure\bases\Enum.php" />
+    <Compile Include="pure\bases\Exception.php" />
+    <Compile Include="pure\bases\Model.php" />
+    <Compile Include="pure\bases\Plugin.php" />
+    <Compile Include="pure\db\Database.php" />
+    <Compile Include="pure\db\SQLBuilder.php" />
+    <Compile Include="pure\db\SQLType.php" />
+    <Compile Include="pure\exceptions\ClassException.php" />
+    <Compile Include="pure\exceptions\DatabaseException.php" />
+    <Compile Include="pure\exceptions\RouteException.php" />
+    <Compile Include="pure\exceptions\ViewException.php" />
+    <Compile Include="pure\kernel\autoloader.php" />
+    <Compile Include="pure\kernel\Engine.php" />
+    <Compile Include="pure\routes\Route.php" />
+    <Compile Include="pure\routes\UrlManager.php" />
+    <Compile Include="pure\utils\Auth.php" />
+    <Compile Include="pure\utils\DynamicHtml.php" />
+    <Compile Include="pure\utils\Hash.php" />
+    <Compile Include="pure\utils\Params.php" />
+    <Compile Include="pure\utils\Request.php" />
+    <Compile Include="pure\utils\Res.php" />
+    <Compile Include="pure\utils\Security.php" />
+    <Compile Include="pure\utils\Session.php" />
+    <Compile Include=".htaccess" />
+    <Compile Include="index.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\assets\favicon" />
+    <Folder Include="app\assets\fonts" />
+    <Folder Include="app\assets\images" />
+    <Folder Include="app\assets\scripts" />
+    <Folder Include="app\assets\strings" />
+    <Folder Include="app\assets\stylesheets" />
+    <Folder Include="app\assets" />
+    <Folder Include="app\configs\env\development" />
+    <Folder Include="app\configs\env\production" />
+    <Folder Include="app\configs\env" />
+    <Folder Include="app\configs" />
+    <Folder Include="app\controllers" />
+    <Folder Include="app\models" />
+    <Folder Include="app\utils" />
+    <Folder Include="app\views\layouts" />
+    <Folder Include="app\views\pages" />
+    <Folder Include="app\views" />
+    <Folder Include="app" />
+    <Folder Include="pure\bases" />
+    <Folder Include="pure\db" />
+    <Folder Include="pure\exceptions" />
+    <Folder Include="pure\kernel" />
+    <Folder Include="pure\routes" />
+    <Folder Include="pure\utils" />
+    <Folder Include="pure" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="app\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="app\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="app\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="app\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="app\assets\fonts\FontAwesome.otf" />
+    <Content Include="app\assets\scripts\bootstrap.js" />
+    <Content Include="app\assets\scripts\bootstrap.min.js" />
+    <Content Include="app\assets\stylesheets\font-awesome.css" />
+    <Content Include="app\assets\stylesheets\font-awesome.min.css" />
+    <Content Include="app\assets\scripts\jquery-3.2.1.min.js" />
+    <Content Include="app\assets\scripts\popper.min.js" />
+    <Content Include="app\assets\strings\.htaccess" />
+    <Content Include="app\assets\stylesheets\bootstrap-grid.css" />
+    <Content Include="app\assets\stylesheets\bootstrap-grid.css.map" />
+    <Content Include="app\assets\stylesheets\bootstrap-grid.min.css" />
+    <Content Include="app\assets\stylesheets\bootstrap-grid.min.css.map" />
+    <Content Include="app\assets\stylesheets\bootstrap-reboot.css" />
+    <Content Include="app\assets\stylesheets\bootstrap-reboot.css.map" />
+    <Content Include="app\assets\stylesheets\bootstrap-reboot.min.css" />
+    <Content Include="app\assets\stylesheets\bootstrap-reboot.min.css.map" />
+    <Content Include="app\assets\stylesheets\bootstrap.css" />
+    <Content Include="app\assets\stylesheets\bootstrap.css.map" />
+    <Content Include="app\assets\stylesheets\bootstrap.min.css" />
+    <Content Include="app\assets\stylesheets\bootstrap.min.css.map" />
+  </ItemGroup>
+</Project>
