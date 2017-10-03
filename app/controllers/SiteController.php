@@ -10,14 +10,14 @@ use Pure\Utils\Session;
  *
  * @version 1.0
  * @author Equipe Projeto X
-L */
+ */
 class SiteController extends Controller
 {
 	/**
-	 * MÈtodo carregado ao acessar a rota
+	 * M√©todo carregado ao acessar a rota
 	 * ProjetoX/site/index e ProjetoX/
 	 *
-	 * Repons·vel por carregar a p·gina principal
+	 * Repons√°vel por carregar a p√°gina principal
 	 */
 	public function index_action()
 	{
@@ -25,7 +25,7 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Verifica se usu·rio est· logado
+	 * Verifica se usu√°rio est√° logado
 	 */
 	public function before()
 	{
