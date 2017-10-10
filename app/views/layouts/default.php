@@ -23,10 +23,49 @@ use Pure\Utils\Auth;
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href="#">
-						<?= $page_name ?>
+						<?= $page_name . " "?>  |
 						<span class="sr-only">(current)</span>
-					</a>
-				</li>
+					</a>	
+				</li>	
+
+				<?php if($page_name == "Administrador"): ?>
+					<ul class="nav navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('admin/index') ?>"><?= Res::str('menu_dashboard') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('admin/edit') ?>"><?= Res::str('menu_edit') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('admin/insert') ?>"><?= Res::str('menu_insert') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('admin/delete') ?>"><?= Res::str('menu_delete') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('admin/list') ?>"><?= Res::str('menu_list') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('admin/report') ?>"><?= Res::str('menu_report') ?></a>
+						</li>
+					</ul>
+				<?php endif; ?>
+
+				<?php if($page_name == "Vendedor"): ?>
+					<ul class="nav navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('seller/index') ?>"><?= Res::str('menu_dashboard') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('seller/sell') ?>"><?= Res::str('menu_sell') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= DynamicHtml::link_to('seller/validate_sell') ?>"><?= Res::str('menu_validate_sell') ?></a>
+						</li>
+						
+					</ul>
+				<?php endif; ?>
+
 			</ul>
 			<?php if(Auth::is_authenticated()): ?>
 				<ul class="nav navbar-nav">

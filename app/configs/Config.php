@@ -28,6 +28,9 @@ class Config
 		return [
 			'DefaultRoute' => new Route('Site','index'),
 			'DefaultErrorRoute' => new Route('Error', 'index'),
+			'AdminRoute' => new Route('Admin', 'index'),
+			'SellerRoute' => new Route('Seller', 'index'),
+			
 		];
 	}
 

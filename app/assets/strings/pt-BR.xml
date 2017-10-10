@@ -13,5 +13,22 @@
     <string name="please_login_label" value=" Por favor, faça login" />
     <string name="wrong_email" value="O e-mail digitado não está cadastrado."/>
     <string name="wrong_password" value="A senha digitada está incorreta."/>
+
+
+    <!-- Inicio das variaveis de Administrador -->
+
+    <string name="menu_dashboard" value="Painel de Controle" />
+    <string name="menu_edit" value="Editar" />
+    <string name="menu_insert" value="Inserir" />
+    <string name="menu_delete" value="Deletar" />
+    <string name="menu_list" value="Listar" />
+    <string name="menu_report" value="Relatorios" />
+
+    <!-- Inicio das variaveis de Administrador -->
+
+    <string name="menu_sell" value="Vender" />
+    <string name="menu_validate_sell" value="Validar Venda" />
+  
+
   </items>
 </xml>
