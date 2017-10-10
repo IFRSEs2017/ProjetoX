@@ -13,5 +13,6 @@
     <string name="please_login_label" value=" Por favor, faça login" />
     <string name="wrong_email" value="O e-mail digitado não está cadastrado."/>
     <string name="wrong_password" value="A senha digitada está incorreta."/>
+    <string name="captcha" value="Você errou a senha muitas vezes. Prove-me que você não é um robô."/>
   </items>
 </xml>

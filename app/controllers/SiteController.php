@@ -10,22 +10,23 @@ use Pure\Utils\Session;
  *
  * @version 1.0
  * @author Equipe Projeto X
-L */
+ */
 class SiteController extends Controller
 {
 	/**
-	 * Método carregado ao acessar a rota
+	 * Mï¿½todo carregado ao acessar a rota
 	 * ProjetoX/site/index e ProjetoX/
 	 *
-	 * Reponsável por carregar a página principal
+	 * Reponsï¿½vel por carregar a pï¿½gina principal
 	 */
 	public function index_action()
 	{
+		
 		$this->render();
 	}
 
 	/**
-	 * Verifica se usuário está logado
+	 * Verifica se usuï¿½rio estï¿½ logado
 	 */
 	public function before()
 	{

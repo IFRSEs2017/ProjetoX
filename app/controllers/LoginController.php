@@ -7,6 +7,7 @@ use Pure\Utils\Auth;
 use App\Models\User;
 use App\Models\Password;
 use Pure\Utils\Res;
+use App\Utils\ReCaptcha;
 
 /**
  * Controller de autenticação de usuário
@@ -72,8 +73,12 @@ class LoginController extends Controller
 	 */
 	private function do_login($credential = 0)
 	{
+		$this->generate_captcha();
 		$user = User::find(['email' => $credential['email'], 'is_actived' => true]);
-		if($user === null)
+		if (!$this->validate_captcha()) {
+			$this->data['error_message'] = Res::str('captcha');
+		}
+		else if($user === null)
 		{
 			$this->data['error_message'] = Res::str('wrong_email');
 		} else if (!Password::compare(Password::find($user->password), $credential['password']))
@@ -85,5 +90,42 @@ class LoginController extends Controller
 			return true;
 		}
 		return false;
+	}
+
+	private function generate_captcha(){
+		$s = $this->session;
+		if($s->contains('captcha') && $s->get('captcha_time') > time() - 1800){
+			$s->set('captcha', $s->get('captcha') + 1);
+			if($s->get('captcha') > 10) {
+				$this->data['show_captcha'] = true;
+				$s->set('require_captcha', true);
+			}
+		} else {
+			$s->set('captcha', 1);
+			$s->set('captcha_time', time());
+			$s->wipe('require_captcha');
+		}
+	}
+
+	private function validate_captcha() {
+		$s = $this->session;
+		$p = $this->params;
+		if($s->get('require_captcha') && PURE_ENV == 'production') {
+			$re_captcha = new ReCaptcha(RECAPTCHA_BACKEND);
+			if ($p->from_POST('g-recaptcha-response')) {
+				$response = $re_captcha->verifyResponse(
+						$p->from_SERVER('REMOTE_ADDR'),
+						$p->from_POST('g-recaptcha-response')
+					);
+				if ($response != null && $response->success) {
+					$s->wipe('require_captcha');
+					$s->wipe('captcha');
+					$s->wipe('captcha_time');
+					return true;
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 }
