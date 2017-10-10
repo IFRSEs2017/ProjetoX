@@ -4,6 +4,7 @@ use Pure\Bases\Controller;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use Pure\Utils\Session;
+use App\Models\User;
 
 /**
  * Controller principal
@@ -71,6 +72,10 @@ class AdminController extends Controller
 		if (!Auth::is_authenticated())
 		{
 			Request::redirect('login/do');
+		}
+
+		if(!User::is_admin()){
+			Request::redirect('seller/index');
 		}
 	}
 

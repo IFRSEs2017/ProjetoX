@@ -2,6 +2,7 @@
 namespace App\Models;
 use Pure\Bases\Model;
 use App\Models\Permission;
+use Pure\Utils\Session;
 /**
  * Representa um usuário na camada de Modelagem,
  * ou seu repositório
@@ -16,5 +17,19 @@ class User extends Model
 	public $name;
 	public $is_admin;
 	public $is_enabled;
+
+	public static function is_admin(){
+		$session = Session::get_instance();
+		$user = $session->get('uinfo');
+		if ($user){
+			$dbuser = User::find(['id' => $user->id]);
+			return $dbuser->is_admin;
+		}
+		return false;
+	}
+
+	public function __construct()
+	{
+	}
 
 }

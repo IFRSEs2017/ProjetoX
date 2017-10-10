@@ -4,6 +4,7 @@ use Pure\Bases\Controller;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use Pure\Utils\Session;
+use App\Models\User;
 
 /**
  * Controller principal
@@ -21,20 +22,20 @@ class SellerController extends Controller
 	 */
 	public function index_action()
 	{
-		$this->render('seller/dashboard', 'default');	
-		
+		$this->render('seller/dashboard', 'default');
+
 	}
 
 	public function sell_action()
 	{
-		$this->render('seller/sell', 'default');	
-		
+		$this->render('seller/sell', 'default');
+
 	}
 
 	public function validate_sell_action()
 	{
-		$this->render('seller/validate_sell', 'default');	
-		
+		$this->render('seller/validate_sell', 'default');
+
 	}
 
 	/**
@@ -47,6 +48,10 @@ class SellerController extends Controller
 		if (!Auth::is_authenticated())
 		{
 			Request::redirect('login/do');
+		}
+
+		if(User::is_admin()){
+			Request::redirect('admin/index');
 		}
 	}
 

@@ -10,4 +10,5 @@ use Pure\Utils\Res;
 <br />
 <br />
 <br />
+<?php var_dump($_SESSION) ?>
 Sou a pagina principal.

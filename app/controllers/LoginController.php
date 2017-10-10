@@ -32,8 +32,13 @@ class LoginController extends Controller
 		if(Request::is_POST() && $credential)
 		{
 			if($this->do_login($credential)){
-				Request::redirect('site/index');
-				exit();
+				if(User::is_admin()){
+					Request::redirect('admin/index');
+					exit();
+				} else {
+					Request::redirect('seller/index');
+					exit();
+				}
 			}
 		}
 		$this->data['page_name'] = 'Login';
@@ -61,6 +66,7 @@ class LoginController extends Controller
 		$allow = [new Route('login', 'exit')];
 		if(Auth::is_authenticated() && !Request::is_to($allow))
 		{
+
 			Request::redirect('site/index');
 		}
 	}

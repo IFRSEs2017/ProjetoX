@@ -29,8 +29,10 @@
     <Compile Include="app\configs\Config.php" />
     <Compile Include="app\configs\env\production\database.php" />
     <Compile Include="app\configs\env\production\variables.php" />
+    <Compile Include="app\controllers\AdminController.php" />
     <Compile Include="app\controllers\ErrorController.php" />
     <Compile Include="app\controllers\LoginController.php" />
+    <Compile Include="app\controllers\SellerController.php" />
     <Compile Include="app\controllers\SiteController.php" />
     <Compile Include="app\models\Password.php" />
     <Compile Include="app\models\User.php" />
