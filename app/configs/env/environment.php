@@ -3,6 +3,7 @@
 * Realiza a definição do ambiente de desenvolvimento
 * de acordo com o valor definido em index.php
 */
+var_dump(PURE_ENV);
 switch(PURE_ENV){
 	case 'development':
 		require(BASE_PATH . 'app/configs/env/development/database.php');

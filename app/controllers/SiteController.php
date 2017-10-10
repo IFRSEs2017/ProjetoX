@@ -14,18 +14,19 @@ use Pure\Utils\Session;
 class SiteController extends Controller
 {
 	/**
-	 * Método carregado ao acessar a rota
+	 * M�todo carregado ao acessar a rota
 	 * ProjetoX/site/index e ProjetoX/
 	 *
-	 * Reponsável por carregar a página principal
+	 * Repons�vel por carregar a p�gina principal
 	 */
 	public function index_action()
 	{
+		
 		$this->render();
 	}
 
 	/**
-	 * Verifica se usuário está logado
+	 * Verifica se usu�rio est� logado
 	 */
 	public function before()
 	{

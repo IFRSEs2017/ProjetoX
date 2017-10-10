@@ -30,5 +30,6 @@
     <string name="menu_validate_sell" value="Validar Venda" />
   
 
+    <string name="captcha" value="Você errou a senha muitas vezes. Prove-me que você não é um robô."/>
   </items>
 </xml>

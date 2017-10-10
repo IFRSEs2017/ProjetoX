@@ -74,6 +74,15 @@ class Params
         return false;
     }
 
+	public function from_SERVER($key)
+	{
+        if (isset($_SERVER[$key]))
+		{
+            return $_SERVER[$key];
+        }
+        return false;
+    }
+
     /**
 	 * Recupera informação em determinada key das variaveis $_POST ou $_GET
 	 * @param string $key nome da key

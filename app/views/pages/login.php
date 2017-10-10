@@ -57,6 +57,14 @@ use Pure\Utils\Res;
             </div>
         </div>
     </div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<?php if(isset($show_captcha)): ?>
+				<div class="g-recaptcha" data-sitekey="6LeN6zIUAAAAAPfwcPd-6TjJy8uhIWcH-EmtNxA8"></div>
+			<?php endif ?>
+		</div>
+	</div>
     <div class="row" style="padding-top: 1rem">
         <div class="col-md-3"></div>
         <div class="col-md-6">

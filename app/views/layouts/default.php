@@ -12,6 +12,7 @@ use Pure\Utils\Auth;
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<?= DynamicHtml::link_css('bootstrap.min.css') ?>
 	<?= DynamicHtml::link_css('font-awesome.min.css') ?>
+	<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
