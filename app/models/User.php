@@ -23,7 +23,9 @@ class User extends Model
 		$user = $session->get('uinfo');
 		if ($user){
 			$dbuser = User::find(['id' => $user->id]);
-			return $dbuser->is_admin;
+			if ($dbuser) {
+				return $dbuser->is_admin;
+			}
 		}
 		return false;
 	}
