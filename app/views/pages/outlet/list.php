@@ -5,10 +5,10 @@ use Pure\Utils\DynamicHtml;
 use Pure\Utils\Res;
 ?>
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-list.
+<div class="container" style="margin-top: 100px;">
+	<?php if(isset($list)): ?>
+		<?php foreach($list as $user): ?>
+		<?php var_dump($user); ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+</div>

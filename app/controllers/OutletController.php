@@ -3,7 +3,7 @@ namespace App\Controllers;
 use Pure\Bases\Controller;
 use Pure\Utils\Auth;
 use Pure\Utils\Request;
-
+use App\Models\User;
 /**
  * OutletController short summary.
  *
@@ -17,7 +17,8 @@ class OutletController extends Controller
 
 	public function list_action(){
 		// Lista pontos de vendas
-		echo 'Lista';
+		$this->data['list'] = User::select()->execute();
+		$this->render('outlet/list');
 	}
 
 	public function insert_action(){
