@@ -26,46 +26,10 @@ class AdminController extends Controller
 		$this->render('admin/dashboard');
 	}
 
-	public function outlets_action()
-	{
-		$this->data['page_name'] = 'Home';
-		$this->render('admin/outlets');
-	}
-
-	public function edit_action()
-	{
-		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/edit', 'default');
-
-	}
-
-	public function insert_action()
-	{
-		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/insert', 'default');
-
-	}
-
-	public function delete_action()
-	{
-		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/delete', 'default');
-
-	}
-
-	public function list_action()
-	{
-		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/list', 'default');
-
-	}
-
 	public function report_action()
 	{
 		$this->render('admin/report', 'default');
-
 	}
-
 
 	/**
 	 * Verifica se usuário está logado

@@ -26,18 +26,6 @@ class SellerController extends Controller
 
 	}
 
-	public function sell_action()
-	{
-		$this->render('seller/sell', 'default');
-
-	}
-
-	public function validate_sell_action()
-	{
-		$this->render('seller/validate_sell', 'default');
-
-	}
-
 	/**
 	 * Verifica se usuário está logado
 	 */

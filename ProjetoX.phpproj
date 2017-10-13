@@ -32,8 +32,10 @@
     <Compile Include="app\controllers\AdminController.php" />
     <Compile Include="app\controllers\ErrorController.php" />
     <Compile Include="app\controllers\LoginController.php" />
+    <Compile Include="app\controllers\OutletController.php" />
     <Compile Include="app\controllers\SellerController.php" />
     <Compile Include="app\controllers\SiteController.php" />
+    <Compile Include="app\controllers\TicketController.php" />
     <Compile Include="app\models\Password.php" />
     <Compile Include="app\models\User.php" />
     <Compile Include="app\utils\Helpers.php" />
@@ -41,11 +43,10 @@
     <Compile Include="app\utils\ReCaptchaResponse.php" />
     <Compile Include="app\views\layouts\default.php" />
     <Compile Include="app\views\pages\admin\dashboard.php" />
-    <Compile Include="app\views\pages\admin\delete.php" />
-    <Compile Include="app\views\pages\admin\edit.php" />
-    <Compile Include="app\views\pages\admin\insert.php" />
-    <Compile Include="app\views\pages\admin\list.php" />
-    <Compile Include="app\views\pages\admin\outlets.php" />
+    <Compile Include="app\views\pages\outlet\edit.php" />
+    <Compile Include="app\views\pages\outlet\insert.php" />
+    <Compile Include="app\views\pages\outlet\delete.php" />
+    <Compile Include="app\views\pages\outlet\list.php" />
     <Compile Include="app\views\pages\admin\report.php" />
     <Compile Include="app\views\pages\error.php" />
     <Compile Include="app\views\pages\login.php" />
@@ -100,6 +101,7 @@
     <Folder Include="app\views" />
     <Folder Include="app" />
     <Folder Include="app\views\pages\admin\" />
+    <Folder Include="app\views\pages\outlet\" />
     <Folder Include="app\views\pages\seller\" />
     <Folder Include="pure\bases" />
     <Folder Include="pure\db" />

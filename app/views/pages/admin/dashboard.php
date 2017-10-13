@@ -11,7 +11,7 @@ use Pure\Utils\DynamicHtml;
 				<hr class="my-4" />
 				<p>Você pode inserir, editar e excluir os pontos de vendas que distribuirão os ingressos.</p>
 				<p class="lead">
-					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('admin/outlets'); ?>" role="button">Começar</a>
+					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('outlet/list'); ?>" role="button">Começar</a>
 				</p>
 			</div>
 		</div>

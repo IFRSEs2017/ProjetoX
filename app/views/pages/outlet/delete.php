@@ -1,5 +1,5 @@
 <?php
-namespace App\Views\Pages\Admin;
+namespace App\Views\Pages\Outlet;
 use App\Utils\Helpers;
 use Pure\Utils\DynamicHtml;
 use Pure\Utils\Res;
@@ -11,4 +11,4 @@ use Pure\Utils\Res;
 <br />
 <br />
 <br />
-edit.
+delete

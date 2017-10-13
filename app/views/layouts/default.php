@@ -32,7 +32,7 @@ use Pure\Utils\Auth;
  					<?php if($is_admin): ?>
 						<ul class="nav navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="<?= DynamicHtml::link_to('admin/outlets') ?>"><?= Res::str('menu_outlets') ?></a>
+								<a class="nav-link" href="<?= DynamicHtml::link_to('outlet/list') ?>"><?= Res::str('menu_outlets') ?></a>
 							</li>
 						</ul>
 					<?php else: ?>
