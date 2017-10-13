@@ -4,6 +4,7 @@ use Pure\Bases\Controller;
 use Pure\Utils\Auth;
 use Pure\Utils\Request;
 use App\Models\User;
+
 /**
  * OutletController short summary.
  *
@@ -15,9 +16,15 @@ use App\Models\User;
 class OutletController extends Controller
 {
 
+	/**
+	 * Lista ponto de vendas e usuários
+	 */
 	public function list_action(){
-		// Lista pontos de vendas
-		$this->data['list'] = User::select()->execute();
+		$users = User::select()->execute();
+		foreach($users as $user) {
+			$user->self = ($user->id == $this->session->get('uinfo')->id);
+		}
+		$this->data['list'] = $users;
 		$this->render('outlet/list');
 	}
 
@@ -45,5 +52,7 @@ class OutletController extends Controller
 		{
 			Request::redirect('login/do');
 		}
+
+		$this->data['user_name'] = $this->session->get('uinfo')->name;
 	}
 }
