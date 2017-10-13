@@ -17,6 +17,7 @@
 
     <!-- Inicio das variaveis de Administrador -->
 
+    <string name="menu_outlets" value="Pontos de vendas" />
     <string name="menu_dashboard" value="Painel de Controle" />
     <string name="menu_edit" value="Editar" />
     <string name="menu_insert" value="Inserir" />

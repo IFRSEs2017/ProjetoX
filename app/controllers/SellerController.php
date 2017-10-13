@@ -53,6 +53,7 @@ class SellerController extends Controller
 		if(User::is_admin()){
 			Request::redirect('admin/index');
 		}
+		$this->data['is_admin'] = false;
 	}
 
 }

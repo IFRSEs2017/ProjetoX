@@ -4,6 +4,7 @@ use Pure\Bases\Controller;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use Pure\Utils\Session;
+use App\Models\User;
 
 /**
  * Controller principal
@@ -21,8 +22,11 @@ class SiteController extends Controller
 	 */
 	public function index_action()
 	{
-		
-		$this->render();
+		if (User::is_admin()) {
+			Request::redirect('admin/index');
+		} else {
+			Request::redirect('seller/index');
+		}
 	}
 
 	/**

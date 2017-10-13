@@ -22,43 +22,48 @@ class AdminController extends Controller
 	 */
 	public function index_action()
 	{
-		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/dashboard', 'default');	
-		
+		$this->data['page_name'] = 'Home';
+		$this->render('admin/dashboard');
+	}
+
+	public function outlets_action()
+	{
+		$this->data['page_name'] = 'Home';
+		$this->render('admin/outlets');
 	}
 
 	public function edit_action()
 	{
 		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/edit', 'default');	
-		
+		$this->render('admin/edit', 'default');
+
 	}
 
 	public function insert_action()
 	{
 		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/insert', 'default');	
-		
+		$this->render('admin/insert', 'default');
+
 	}
 
 	public function delete_action()
 	{
 		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/delete', 'default');	
-		
+		$this->render('admin/delete', 'default');
+
 	}
 
 	public function list_action()
 	{
 		$this->data['page_name'] = 'Administrador';
-		$this->render('admin/list', 'default');	
-		
+		$this->render('admin/list', 'default');
+
 	}
 
 	public function report_action()
 	{
-		$this->render('admin/report', 'default');	
-		
+		$this->render('admin/report', 'default');
+
 	}
 
 
@@ -67,8 +72,6 @@ class AdminController extends Controller
 	 */
 	public function before()
 	{
-		$this->data['page_name'] = 'Administrador';
-
 		if (!Auth::is_authenticated())
 		{
 			Request::redirect('login/do');
@@ -77,6 +80,9 @@ class AdminController extends Controller
 		if(!User::is_admin()){
 			Request::redirect('seller/index');
 		}
+
+		$this->data['user_name'] = $this->session->get('uinfo')->name;
+		$this->data['is_admin'] = true;
 	}
 
 }
