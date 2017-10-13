@@ -17,10 +17,10 @@ class OutletController extends Controller
 {
 
 	/**
-	 * Lista ponto de vendas e usu�rios
+	 * Lista ponto de vendas e usuários
 	 */
 	public function list_action(){
-		$users = User::select()->execute();
+		$users = User::select()->where(['is_actived' => true])->execute();
 		foreach($users as $user) {
 			$user->self = ($user->id == $this->session->get('uinfo')->id);
 		}
@@ -33,9 +33,37 @@ class OutletController extends Controller
 		echo 'Insere';
 	}
 
-	public function delete_action(){
-		// Exclui pontos de vendas
-		echo 'Exclui';
+	/**
+	 * Método que realiza a desativação de algum usuário
+	 *
+	 * GET - Mostra formulario confirmando a desativação
+	 * POST - Realiza a desativação
+	 *
+	 * @param mixed $id
+	 */
+	public function delete_action($id){
+		if (Request::is_POST()){
+			$user = User::find(['id' => intval($this->params->from_POST('id_to_delete'))]);
+			if($user && $user->id !=  $this->session->get('uinfo')->id){
+				User::update(['is_actived' => false])
+					->where(['id' => $user->id])
+					->execute();
+				Request::redirect('outlet/list');
+			} else {
+				$this->data['message'] = 'Não foi possível desativar o usuário.';
+			}
+		} else {
+			$user = User::find(['id' => intval($id)]);
+			if ($user == false) {
+				$this->data['message'] = 'O usuário que você está tentando excluir não existe.';
+			} else if ($user->id ==  $this->session->get('uinfo')->id) {
+				$this->data['message'] = 'Você não pode excluir sua própria conta de usuário.';
+			} else {
+				$this->data['user'] = $user;
+			}
+		}
+		$this->render('outlet/delete');
+
 	}
 
 	public function update_action(){
