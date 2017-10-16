@@ -74,4 +74,47 @@ class Helpers
 		}
 		return $randomString;
 	}
+
+	public static function string_validation($string){
+		if(strlen($string) > 2){
+			if (preg_match('/^[A-Za-z0-9\s]*$/', $string)) {
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+		
+		
+	}
+
+	public static function email_validation($email){
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static function cpf_validation($cpf){
+		if(strlen($cpf) != 10 ){
+			return false;
+		}else{
+			if(preg_match('/^[0-9]*$/', $cpf)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+
+	public static function rg_validation($rg){
+		if(preg_match('/^[0-9]*$/', $rg)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 }

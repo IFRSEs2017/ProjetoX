@@ -15,7 +15,7 @@
     <string name="wrong_password" value="A senha digitada está incorreta."/>
 
 
-    <!-- Inicio das variaveis de Administrador -->
+    <!-- Inicio das variaveis de menu de administrador -->
 
     <string name="menu_outlets" value="Pontos de vendas" />
     <string name="menu_dashboard" value="Painel de Controle" />
@@ -25,11 +25,20 @@
     <string name="menu_list" value="Listar" />
     <string name="menu_report" value="Relatorios" />
 
-    <!-- Inicio das variaveis de Administrador -->
+    <!-- Inicio das variaveis de menu de vendedor -->
 
     <string name="menu_sell" value="Vender" />
     <string name="menu_validate_sell" value="Validar Venda" />
   
+
+
+   <!-- Inicio das variaveis formulario de inserçao-->
+    <string name="form_name" value="Nome" />
+    <string name="form_email" value="email" />
+    <string name="form_password" value="Senha" />
+    <string name="form_cpf" value="CPF" />
+    <string name="form_rg" value="RG" />
+
 
     <string name="captcha" value="Você errou a senha muitas vezes. Prove-me que você não é um robô."/>
   </items>
