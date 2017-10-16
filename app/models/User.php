@@ -16,7 +16,7 @@ class User extends Model
 	public $password;
 	public $name;
 	public $is_admin;
-	public $is_enabled;
+	public $is_actived;
 
 	public static function is_admin(){
 		$session = Session::get_instance();
