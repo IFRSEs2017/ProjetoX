@@ -23,7 +23,7 @@ use Pure\Utils\Auth;
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
+				<li class="nav-item">
 					<a class="nav-link" href="#">
 						<?= $page_name . " "?>  
 						<span class="sr-only">(current)</span>
@@ -32,7 +32,7 @@ use Pure\Utils\Auth;
 				<?php if(isset($is_admin)): ?>
  					<?php if($is_admin): ?>
 						<ul class="nav navbar-nav">
-							<li class="nav-item">
+							<li class="nav-item active">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('outlet/list') ?>"><?= Res::str('menu_outlets') ?></a>
 							</li>
 						</ul>
