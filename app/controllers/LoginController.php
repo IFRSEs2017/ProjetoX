@@ -215,9 +215,10 @@ class LoginController extends Controller
 		if (!$this->validate_captcha()) {
 			$this->data['error_message'] = Res::str('captcha');
 		}
-		else if($user === null)
-		{
+		else if($user === null) {
 			$this->data['error_message'] = Res::str('wrong_email');
+		} else if (Password::find(['id' => $user->password]) === null) {
+			$this->data['error_message'] = 'Nenhuma senha cadastrada. Clique em "Primeiro acesso"';
 		} else if (!Password::compare(Password::find($user->password), $credential['password']))
 		{
 			$this->data['error_message'] = Res::str('wrong_password');
