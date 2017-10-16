@@ -44,9 +44,13 @@ use Pure\Utils\Res;
     <div class="row" style="padding-top: 1rem">
         <div class="col-md-3"></div>
         <div class="col-md-6">
+            <a href="<?= DynamicHtml::link_to('login/do') ?>" class="btn btn-primary">
+			    Voltar
+			</a>
             <button type="submit" class="btn btn-success">
 				</i><?= 'Redefinir' ?>
             </button>
+            
         </div>
     </div>
 </form>

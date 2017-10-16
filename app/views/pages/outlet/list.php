@@ -32,7 +32,7 @@ use Pure\Utils\Res;
 				<tr>
 					<th>Nome</th>
 					<th>E-mail</th>
-					<th>CPF</th><?php /*
+					<th>Privilégios</th><?php /*
 					<th>Tipo</th> */?>
 					<th>Opções</th>
 				</tr>

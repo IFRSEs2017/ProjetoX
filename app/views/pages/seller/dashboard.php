@@ -7,8 +7,8 @@ use Pure\Utils\DynamicHtml;
 	<div class="row">
 		<div class="col-md">
 			<div class="jumbotron">
-				<h1 class="display-4">Venda ingressos</h1>
-				<p class="lead">Venda ingressos para a festa.</p>
+				<h1 class="display-4">Venda de ingressos</h1>
+				<p class="lead">Venda de ingressos para a festa.</p>
 				<hr class="my-4" />
 				<p>Essa funcionalidade será liberada em breve.</p>
 				<p class="lead">
