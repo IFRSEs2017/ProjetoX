@@ -44,6 +44,8 @@ class OutletController extends Controller
 			//Helpers::rg_validation($data['form_rg']) ? $user->rg = $data['form_rg'] : array_push($errors, 'RG Inválido');
 			//Helpers::cpf_validation($data['form_cpf']) ? $user->cpf = $data['form_cpf'] : array_push($errors, 'CPF Inválido');
 			$user->is_admin = intval($data['form_privilege']);
+			$user->is_actived = 1;
+			
 			$user_db = User::find(['email' => $user->email]);
 			
 			if(count($errors) > 0){
@@ -97,16 +99,38 @@ class OutletController extends Controller
 	}
 	//eu
 	public function update_action($id){
-		// Atualiza pontos de vendas
-		// if (Request::is_POST()){
-		// 	$user_db = User::find(['id' => intval($this->params->from_POST('id_to_update'))]);
-		// 	echo '<br><br><br><br>';
-		// 	var_dump($user_db);
-		// 	$this->data['user'] = $user_db;
+		//Atualiza pontos de vendas
+		if (Request::is_POST()){
+			$data = $this->params->unpack('POST', ['form_name_user', 'form_email', 'form_privilege', 'form_rg', 'form_cpf']);
+			$errors = [];
+			$user = new User();
+			Helpers::string_validation($data['form_name_user']) ? $user->name = $data['form_name_user'] : array_push($errors, 'Nome Inválido');
+			Helpers::email_validation($data['form_email']) ? $user->email = $data['form_email'] : array_push($errors, 'Email Inválido');
+			//Helpers::rg_validation($data['form_rg']) ? $user->rg = $data['form_rg'] : array_push($errors, 'RG Inválido');
+			//Helpers::cpf_validation($data['form_cpf']) ? $user->cpf = $data['form_cpf'] : array_push($errors, 'CPF Inválido');
+			$user->is_admin = intval($data['form_privilege']);
+			$user->is_actived = 1;
 			
-		// }
-		// Insere pontos de vendas
-		//$this->render('outlet/update');
+			$user_db = User::find(['email' => $user->email]);
+			
+			if(count($errors) > 0){
+				$this->data['errors'] = $errors;
+				$this->data['title'] = "Ops!";
+				$this->data['class'] = "class = 'alert alert-danger'";
+			}else{
+				User::update(['name' => $user->name, 'email' => $user->email, 'is_admin' => $user->is_admin])
+				->where(['id' => $user_db->id])
+				->execute();
+				Request::redirect('outlet/list');
+			}
+
+
+
+		}
+		//Insere pontos de vendas
+		$user_db = User::find(['id' => intval($id)]);
+		$this->data['user'] = $user_db;
+		$this->render('outlet/update');
 		
 	}
 

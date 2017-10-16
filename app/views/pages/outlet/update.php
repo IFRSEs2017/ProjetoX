@@ -28,10 +28,10 @@ use Pure\Utils\Res;
 
 
 <div class='container'>
-    <form action="<?= DynamicHtml::link_to('outlet/insert') ?>" method="POST">
+    <form action="<?= DynamicHtml::link_to('outlet/update') ?>" method="POST">
         <div class="form-group">
             <label for="name"><?= Res::str('form_name') ?></label>
-            <input type="text" class="form-control" name="form_name_user"  placeholder="" maxlength="255" value="<?= $user->name ?>">
+            <input type="text" class="form-control" name="form_name_user"  placeholder="" maxlength="255" value=" <?= $user->name ?>" >
         </div>
 
         <div class="form-group">
@@ -45,7 +45,7 @@ use Pure\Utils\Res;
 
         <div class="form-group">
             <label for="email"><?= Res::str('form_email') ?></label>
-            <input type="email" class="form-control" name="form_email" placeholder="" maxlength="255">
+            <input type="email" class="form-control" name="form_email" placeholder="" maxlength="255" value=" <?= $user->email ?>">
         </div>
         
         <fieldset class="form-group">
@@ -64,7 +64,10 @@ use Pure\Utils\Res;
             </div>
             
         </fieldset>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <a href="<?= DynamicHtml::link_to('outlet/list/') ?>" class="btn btn-success ">
+		Voltar
+		</a>
     </form>
 
 </div>

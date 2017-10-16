@@ -53,7 +53,7 @@ use Pure\Utils\Res;
 						<?php endif; ?>
 					</td>
 					<td>
-						<a href="<?= DynamicHtml::link_to('outlet/insert/' . $user->id) ?>" class="btn btn-primary btn-sm">
+						<a href="<?= DynamicHtml::link_to('outlet/update/' . $user->id) ?>" class="btn btn-primary btn-sm">
 							Editar
 							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 						</a>

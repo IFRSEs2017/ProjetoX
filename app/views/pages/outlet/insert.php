@@ -65,6 +65,9 @@ use Pure\Utils\Res;
             
         </fieldset>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a href="<?= DynamicHtml::link_to('outlet/list/') ?>" class="btn btn-success">
+		Voltar
+		</a>
     </form>
 
 </div>
