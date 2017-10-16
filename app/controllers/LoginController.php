@@ -136,6 +136,7 @@ class LoginController extends Controller
 						->execute();
 					$s->wipe('reset');
 					$s->wipe('reset_id');
+					Auth::authenticate($user->id, $user);
 					Request::redirect('site/index');
 				}
 				$this->data['error_message'] = 'As senhas não conferem.';
@@ -248,7 +249,7 @@ class LoginController extends Controller
 	private function validate_captcha() {
 		$s = $this->session;
 		$p = $this->params;
-		if($s->get('require_captcha') && PURE_ENV == 'production') {
+		if($s->get('require_captcha') /*&& PURE_ENV == 'production'*/) {
 			$re_captcha = new ReCaptcha(RECAPTCHA_BACKEND);
 			if ($p->from_POST('g-recaptcha-response')) {
 				$response = $re_captcha->verifyResponse(

@@ -55,14 +55,14 @@ use Pure\Utils\Auth;
 			<?php if(Auth::is_authenticated()): ?>
 				<ul class="nav navbar-nav">
 					<li class="nav-item">
-						<span class="display-6" style="margin-right: 20px; color: white;">
+						<span class="display-6" style="margin-right: 20px; color: #999999;">
 							<?= $user_name ?>
 						</span>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="<?= DynamicHtml::link_to('login/exit') ?>"><?= Res::str('logout_label') ?></a>
+						<a class="nav-link" style="color: white;" href="<?= DynamicHtml::link_to('login/exit') ?>"><?= Res::str('logout_label') ?></a>
 					</li>
 				</ul>
 			<?php endif; ?>
