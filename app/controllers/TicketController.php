@@ -41,6 +41,7 @@ class TicketController extends Controller
 	 */
 	public function before()
 	{
+		Request::redirect('error/index');
 		if (!Auth::is_authenticated())
 		{
 			Request::redirect('login/do');

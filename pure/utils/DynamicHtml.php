@@ -64,7 +64,7 @@ class DynamicHtml
 	 */
 	public static function link_to($path, $get = [])
 	{
-		return UrlManager::get_instance()->get_base_url() . $path . '/';
+		return UrlManager::get_instance()->get_base_url() . $path;
 	}
 
 	/**

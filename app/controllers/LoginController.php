@@ -2,12 +2,19 @@
 namespace App\Controllers;
 use Pure\Bases\Controller;
 use Pure\Routes\Route;
+use Pure\Utils\DynamicHtml;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
+use Pure\Utils\Hash;
+use Pure\Utils\Session;
+use Pure\Utils\Params;
+use Pure\Utils\Res;
 use App\Models\User;
 use App\Models\Password;
-use Pure\Utils\Res;
+use App\Models\Reset;
 use App\Utils\ReCaptcha;
+use App\Utils\Helpers;
+use App\Utils\Mailer;
 
 /**
  * Controller de autenticação de usuário
@@ -42,8 +49,132 @@ class LoginController extends Controller
 			}
 		}
 		$this->data['page_name'] = 'Login';
-		$this->render('login', 'default');
+		$this->render('login/login', 'default');
 		exit();
+	}
+
+	public function first_access_action(){
+		if (Request::is_POST()) {
+			$email = Params::get_instance()->from_POST('email');
+			if (Helpers::email_validation($email)){
+				Request::redirect('login/send_reset/' . $email);
+			}
+			$this->data['error_message'] = 'E-mail inválido.';
+		}
+		$this->render('login/email');
+	}
+
+	public function forgot_action(){
+		if (Request::is_POST()) {
+			$email = Params::get_instance()->from_POST('email');
+			if (Helpers::email_validation($email)){
+				Request::redirect('login/send_reset/' . $email);
+			}
+			$this->data['error_message'] = 'E-mail inválido.';
+		}
+		$this->render('login/email');
+	}
+
+
+	public function send_reset_action($email)
+	{
+		$user = User::find(['email' => $email]);
+		if($user){
+			$reset = Reset::find(['user' => $user->id, 'is_activated' => true]);
+			if ($reset) {
+				if (strtotime($reset->created) > (time() - 1800)){
+					$this->data['send'] = true;
+					$this->data['message'] =  'Um link para redefinir a senha já foi enviado para o e-mail:';
+					$this->data['email'] = $user->email;
+					$this->render('login/reset');
+					exit();
+				} else {
+					Reset::update(['is_activated' => '0'])
+						->where(['id' => $reset->id])
+						->execute();
+				}
+			}
+			$word = Hash::random_word(64);
+			$reset = new Reset($word);
+			$reset->user = $user->id;
+			Reset::save($reset);
+			$this->data['send'] = true;
+			$this->data['message'] = 'Um link para redefinir a senha já foi enviado para o e-mail:';
+			$this->data['email'] = $user->email;
+			if(PURE_ENV == 'development') {
+				echo '<br><br><br>'.DynamicHtml::link_to('login/validate_reset&k=' . $word . '&u=' . $user->id);
+			} else {
+				Mailer::send($user->email, 'Redefinir a senha', DynamicHtml::link_to('login/validate_reset&k=' . $word . '&u=' . $user->id));
+			}
+		}
+		$this->data['message'] = 'Esse e-mail não está cadastrado.';
+		$this->render('login/reset');
+	}
+
+	public function reset_action()
+	{
+		$s = Session::get_instance();
+		$reset = $s->get('reset');
+		if ($reset != false && $reset > (time() - 1800)){
+			if(Request::is_POST()){
+				$pass = Params::get_instance()->unpack('POST', ['re-password','password']);
+				if($pass && $pass['re-password'] == $pass['password']) {
+					if(strlen($pass['password']) < 6) {
+						$this->data['error_message'] = 'A senha necessita ter mais de 6 caracteres.';
+						$this->render('login/password');
+						exit();
+					}
+					$password = new Password($pass['password']);
+					$id = Password::save($password);
+					$user = User::find(['id' => $s->get('reset_id')]);
+					User::update(['password' => $id])
+						->where(['id' => $user->id])
+						->execute();
+					$reset = Reset::find(['user' => $s->get('reset_id'), 'is_activated' => true]);
+					Reset::update(['is_activated' => '0'])
+						->where(['id' => $reset->id])
+						->execute();
+					$s->wipe('reset');
+					$s->wipe('reset_id');
+					Request::redirect('site/index');
+				}
+				$this->data['error_message'] = 'As senhas não conferem.';
+			}
+			$this->render('login/password');
+			exit();
+		} else {
+			$reset = Reset::find(['user' => $s->get('reset_id'), 'is_activated' => true]);
+			if($reset) {
+				Reset::update(['is_activated' => '0'])
+					->where(['id' => $reset->id])
+					->execute();
+				$s->wipe('reset');
+				$s->wipe('reset_id');
+			}
+		}
+		Request::redirect('site/index');
+	}
+
+	public function validate_reset_action()
+	{
+		$s = Session::get_instance();
+		$data = Params::get_instance()->unpack('GET', ['k','u']);
+		$reset = Reset::find(['user' => $data['u'], 'is_activated' => true]);
+		if(isset($data['k']) && $reset) {
+			if (strtotime($reset->created) > (time() - 1800)){
+				if(Reset::compare($reset, $data['k'])){
+					$s->set('reset_id', $reset->user);
+					$s->set('reset', time());
+					Request::redirect('login/reset');
+					exit();
+				}
+			} else {
+				Reset::update(['is_activated' => '0'])
+					->where(['id' => $reset->id])
+					->execute();
+			}
+		}
+		Request::redirect('error/index');
 	}
 
 	/**
@@ -63,10 +194,10 @@ class LoginController extends Controller
 	 */
 	public function before()
 	{
+
 		$allow = [new Route('login', 'exit')];
 		if(Auth::is_authenticated() && !Request::is_to($allow))
 		{
-
 			Request::redirect('site/index');
 		}
 	}
@@ -80,7 +211,7 @@ class LoginController extends Controller
 	private function do_login($credential = 0)
 	{
 		$this->generate_captcha();
-		$user = User::find(['email' => $credential['email'], 'is_actived' => true]);
+		$user = User::find(['email' => $credential['email'], 'is_activated' => true]);
 		if (!$this->validate_captcha()) {
 			$this->data['error_message'] = Res::str('captcha');
 		}

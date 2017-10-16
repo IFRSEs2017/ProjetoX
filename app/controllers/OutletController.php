@@ -22,7 +22,7 @@ class OutletController extends Controller
 	 * Lista ponto de vendas e usuários
 	 */
 	public function list_action(){
-		$users = User::select()->where(['is_actived' => true])->execute();
+		$users = User::select()->where(['is_activated' => true])->execute();
 		foreach($users as $user) {
 			$user->self = ($user->id == $this->session->get('uinfo')->id);
 		}
@@ -47,7 +47,7 @@ class OutletController extends Controller
 			//Helpers::cpf_validation($data['form_cpf']) ? $user->cpf = $data['form_cpf'] : array_push($errors, 'CPF Inválido');
 			//Helpers::rg_validation($data['form_rg']) ? $user->rg = $data['form_rg'] : array_push($errors, 'RG Inválido');
 			$user->is_admin = intval($data['form_privilege']);
-			$user->is_actived = 1;
+			$user->is_activated = 1;
 
 			$user_db = User::find(['email' => $user->email]);
 			if(count($errors) > 0){
@@ -130,7 +130,7 @@ class OutletController extends Controller
 				} else {
 					$user_db->is_admin = intval($data['form_privilege']);
 				}
-				$user_db->is_actived = 1;
+				$user_db->is_activated = 1;
 				if(count($errors) > 0){
 					$this->data['errors'] = $errors;
 					$this->data['title'] = "Ops!";

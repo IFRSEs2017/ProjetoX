@@ -18,7 +18,7 @@ class User extends Model
 	//public $rg;
 	public $cpf;
 	public $is_admin;
-	public $is_actived;
+	public $is_activated;
 
 	public static function is_admin(){
 		$session = Session::get_instance();
