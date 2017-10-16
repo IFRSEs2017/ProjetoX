@@ -4,8 +4,8 @@ use Pure\Bases\Model;
 use App\Models\Permission;
 use Pure\Utils\Session;
 /**
- * Representa um usu·rio na camada de Modelagem,
- * ou seu repositÛrio
+ * Representa um usu√°rio na camada de Modelagem,
+ * ou seu reposit√≥rio
  *
  * @version 1.0
  * @author Equipe Projeto X
@@ -15,6 +15,8 @@ class User extends Model
 	public $email;
 	public $password;
 	public $name;
+	//public $rg;
+	public $cpf;
 	public $is_admin;
 	public $is_actived;
 

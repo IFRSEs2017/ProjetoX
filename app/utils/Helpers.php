@@ -85,8 +85,8 @@ class Helpers
 		}else{
 			return false;
 		}
-		
-		
+
+
 	}
 
 	public static function email_validation($email){
@@ -98,7 +98,7 @@ class Helpers
 	}
 
 	public static function cpf_validation($cpf){
-		if(strlen($cpf) != 10 ){
+		if(strlen($cpf) != 11 ){
 			return false;
 		}else{
 			if(preg_match('/^[0-9]*$/', $cpf)){
@@ -116,5 +116,5 @@ class Helpers
 			return false;
 		}
 	}
-	
+
 }

@@ -10,6 +10,7 @@ use Pure\Utils\Auth;
 	<meta charset="utf-8" />
 	<meta http-equiv="Content-Language" content="pt-br" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title><?= Res::str('app_title') ?></title>
 	<?= DynamicHtml::link_css('bootstrap.min.css') ?>
 	<?= DynamicHtml::link_css('font-awesome.min.css') ?>
 	<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
@@ -36,7 +37,7 @@ use Pure\Utils\Auth;
 							</li>
 						</ul>
 					<?php else: ?>
-						<ul class="nav navbar-nav">
+						<?php /*<ul class="nav navbar-nav">
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/index') ?>"><?= Res::str('menu_dashboard') ?></a>
 							</li>
@@ -47,7 +48,7 @@ use Pure\Utils\Auth;
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/validate_sell') ?>"><?= Res::str('menu_validate_sell') ?></a>
 							</li>
 						
-						</ul>
+						</ul>*/?>
 					<?php endif; ?>
 				<?php endif; ?>
 			</ul>

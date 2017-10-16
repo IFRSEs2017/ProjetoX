@@ -34,7 +34,7 @@
 
    <!-- Inicio das variaveis formulario de inserçao-->
     <string name="form_name" value="Nome" />
-    <string name="form_email" value="email" />
+    <string name="form_email" value="E-mail" />
     <string name="form_password" value="Senha" />
     <string name="form_cpf" value="CPF" />
     <string name="form_rg" value="RG" />

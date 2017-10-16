@@ -41,9 +41,9 @@
     <Compile Include="app\utils\Helpers.php" />
     <Compile Include="app\utils\ReCaptcha.php" />
     <Compile Include="app\utils\ReCaptchaResponse.php" />
+    <Compile Include="app\views\dashboard.php" />
     <Compile Include="app\views\layouts\default.php" />
     <Compile Include="app\views\pages\admin\dashboard.php" />
-    <Compile Include="app\views\pages\outlet\edit.php" />
     <Compile Include="app\views\pages\outlet\insert.php" />
     <Compile Include="app\views\pages\outlet\delete.php" />
     <Compile Include="app\views\pages\outlet\list.php" />
@@ -51,6 +51,7 @@
     <Compile Include="app\views\pages\error.php" />
     <Compile Include="app\views\pages\login.php" />
     <Compile Include="app\views\pages\index.php" />
+    <Compile Include="app\views\pages\outlet\update.php" />
     <Compile Include="app\views\pages\seller\dashboard.php" />
     <Compile Include="app\views\pages\seller\sell.php" />
     <Compile Include="app\views\pages\seller\validate_sell.php" />

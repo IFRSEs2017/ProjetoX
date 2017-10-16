@@ -32,6 +32,7 @@ use Pure\Utils\Res;
 				<tr>
 					<th>Nome</th>
 					<th>E-mail</th>
+					<th>CPF</th>
 					<th>Tipo</th>
 					<th>Opções</th>
 				</tr>
@@ -45,6 +46,9 @@ use Pure\Utils\Res;
 					<td>
 						<?= $user->email; ?>
 					</td>
+					<?php /*<td>
+						<?= $user->cpf; ?>
+					</td>*/?>
 					<td>
 						<?php if($user->is_admin): ?>
 						<?= 'Administrador' ?>

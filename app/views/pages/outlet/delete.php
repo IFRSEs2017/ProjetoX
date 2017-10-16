@@ -17,7 +17,7 @@ use Pure\Utils\Res;
 		<p>
 			<strong>Cuidado!</strong> Você tem certeza que deseja desativar o usuário "<?= $user->name ?>"?
 		</p>
-		<form action="<?= DynamicHtml::link_to('outlet/delete') ?>" method="POST">
+		<form action="<?= DynamicHtml::link_to('outlet/delete/' . $user->id) ?>" method="POST">
 			<input type="number" value="<?= $user->id ?>" name="id_to_delete" hidden/>
 			<div class="form-group" style="text-align: right">
 				<a type="button" href="<?= DynamicHtml::link_to('outlet/list') ?>" class="btn btn-primary">Voltar</a>
