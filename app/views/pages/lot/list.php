@@ -19,30 +19,47 @@ use Pure\Utils\Res;
 	<h2>Lotes e ingressos</h2>
 	<br />
 	<div class="row">
-		<a href="<?= DynamicHtml::link_to('ticket/insert') ?>" class="btn btn-primary">
+		<a href="<?= DynamicHtml::link_to('lot/insert') ?>" class="btn btn-primary">
 			<i class="fa fa-plus" aria-hidden="true"></i>
 			Novo lote
 		</a>
 	</div>
 	<br />
-	<div class="container">
-		<div class="row">
-			<?php foreach($list as $item): ?>
-			<div class="col-md-4">
-				<div class="jumbotron">
-					<h1 class="display-4">Lotes e ingressos</h1>
-					<p class="lead">Crie e edite lotes de ingressos para sua festa.</p>
-					<hr class="my-4" />
-					<p>
-						Cadastre os
-						<b>lotes de ingresso</b>da sua festa e defina o valor, data e preço.
-					</p>
-					<p class="lead">
-						<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('ticket/list'); ?>" role="button">Começar</a>
-					</p>
-				</div>
+	<div class="row">
+		<?php for($i = 0; $i < count($list); $i++): ?>
+		<div class="col-md-4">
+			<div class="jumbotron">
+				<h1 class="display-4">
+					<?= $i + 1 ?>º lote
+				</h1>
+				<p class="lead">
+					Valor do ingresso:
+					<span class="badge badge-warning">R$ <?= number_format((float)$list[$i]->valuation, 2, ',', ''); ?></span>
+					<br />
+					<?= $list[$i]->amount ?> ingressos
+				</p>
+				<hr class="my-4" />
+				<p class="lead">
+					Data de venda:
+					<br />
+					<?= Helpers::date_format($list[$i]->start) ?> a <?= Helpers::date_format($list[$i]->end) ?>
+				</p>
+				<p class="lead">
+					<a class="btn btn-info btn-sm" href="<?= DynamicHtml::link_to('lot/see/' . $list[$i]->id); ?>" role="button">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						Detalhes
+					</a>
+					<a class="btn btn-primary btn-sm" href="<?= DynamicHtml::link_to('lot/update/' . $list[$i]->id); ?>" role="button">
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						Editar
+					</a>
+					<a class="btn btn-danger btn-sm" href="<?= DynamicHtml::link_to('lot/delete/' . $list[$i]->id); ?>" role="button">
+						<i class="fa fa-trash-o" aria-hidden="true"></i>
+						Excluir
+					</a>
+				</p>
 			</div>
-			<?php endforeach; ?>
 		</div>
+		<?php endfor; ?>
 	</div>
 </div>

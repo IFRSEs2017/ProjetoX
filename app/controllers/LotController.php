@@ -5,13 +5,20 @@ use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use Pure\Utils\Session;
 use App\Models\User;
+use App\Models\Lot;
 
 class LotController extends Controller
 {
 
 	public function list_action(){
-		$this->data['list'] = ['','',''];
+		$this->data['list'] = Lot::find();
 		$this->render('lot/list');
+	}
+
+	public function see_action($id){
+		echo 'Ver:<br>';
+		$item = Lot::find($id);
+		var_dump($item);
 	}
 
 	public function insert_action(){
@@ -19,14 +26,16 @@ class LotController extends Controller
 		echo 'Insere';
 	}
 
-	public function delete_action(){
-		// Exclui pontos de vendas
-		echo 'Exclui';
+	public function delete_action($id){
+		echo 'Delete:<br>';
+		$item = Lot::find($id);
+		var_dump($item);
 	}
 
-	public function update_action(){
-		// Atualiza pontos de vendas
-		echo 'Atualiza';
+	public function update_action($id){
+		echo 'Update:<br>';
+		$item = Lot::find($id);
+		var_dump($item);
 	}
 
 	/**

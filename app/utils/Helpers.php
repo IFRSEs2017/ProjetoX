@@ -40,7 +40,7 @@ class Helpers
 	public static function date_format($time)
 	{
 		$timestamp = strtotime($time);
-		return date('G:i - d/m/Y', $timestamp);
+		return date('d/m/Y', $timestamp);
 	}
 
 	/**
