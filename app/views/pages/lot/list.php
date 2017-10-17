@@ -18,13 +18,12 @@ use Pure\Utils\Res;
 	<br />
 	<h2>Lotes e ingressos</h2>
 	<br />
-	<div class="row">
-		<a href="<?= DynamicHtml::link_to('lot/insert') ?>" class="btn btn-primary">
-			<i class="fa fa-plus" aria-hidden="true"></i>
-			Novo lote
-		</a>
-	</div>
+	<a href="<?= DynamicHtml::link_to('lot/insert') ?>" class="btn btn-primary">
+		<i class="fa fa-plus" aria-hidden="true"></i>
+		Novo lote
+	</a>
 	<br />
+	<hr class="my-12" />
 	<div class="row">
 		<?php for($i = 0; $i < count($list); $i++): ?>
 		<div class="col-md-4">
@@ -34,15 +33,15 @@ use Pure\Utils\Res;
 				</h1>
 				<p class="lead">
 					Valor do ingresso:
-					<span class="badge badge-warning">R$ <?= number_format((float)$list[$i]->valuation, 2, ',', ''); ?></span>
-					<br />
-					<?= $list[$i]->amount ?> ingressos
+					<span class="badge badge-warning">
+						R$ <?= number_format((float)$list[$i]->valuation, 2, ',', ''); ?>
+					</span>
+					<br /><?= $list[$i]->amount ?> ingressos
 				</p>
 				<hr class="my-4" />
 				<p class="lead">
 					Data de venda:
-					<br />
-					<?= Helpers::date_format($list[$i]->start) ?> a <?= Helpers::date_format($list[$i]->end) ?>
+					<br /><?= Helpers::date_format($list[$i]->start) ?> a <?= Helpers::date_format($list[$i]->end) ?>
 				</p>
 				<p class="lead">
 					<a class="btn btn-info btn-sm" href="<?= DynamicHtml::link_to('lot/see/' . $list[$i]->id); ?>" role="button">
@@ -59,7 +58,6 @@ use Pure\Utils\Res;
 					</a>
 				</p>
 			</div>
-		</div>
-		<?php endfor; ?>
+		</div><?php endfor; ?>
 	</div>
 </div>
