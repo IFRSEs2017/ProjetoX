@@ -5,19 +5,13 @@ use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use Pure\Utils\Session;
 use App\Models\User;
-/**
- * TicketController short summary.
- *
- * TicketController description.
- *
- * @version 1.0
- * @author marce
- */
-class TicketController extends Controller
+
+class LotController extends Controller
 {
 
 	public function list_action(){
-		echo 'Lista';
+		$this->data['list'] = ['','',''];
+		$this->render('lot/list');
 	}
 
 	public function insert_action(){
@@ -44,6 +38,7 @@ class TicketController extends Controller
 		{
 			Request::redirect('login/do');
 		}
-		Request::redirect('error/index');
+		$this->data['user_name'] = $this->session->get('uinfo')->name;
+		$this->data['is_admin'] = true;
 	}
 }

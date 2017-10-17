@@ -32,12 +32,16 @@
     <Compile Include="app\controllers\AdminController.php" />
     <Compile Include="app\controllers\ErrorController.php" />
     <Compile Include="app\controllers\LoginController.php" />
+    <Compile Include="app\controllers\LotController.php" />
     <Compile Include="app\controllers\OutletController.php" />
     <Compile Include="app\controllers\SellerController.php" />
     <Compile Include="app\controllers\SiteController.php" />
     <Compile Include="app\controllers\TicketController.php" />
+    <Compile Include="app\models\Lot.php" />
     <Compile Include="app\models\Password.php" />
     <Compile Include="app\models\Reset.php" />
+    <Compile Include="app\models\Secret.php" />
+    <Compile Include="app\models\Ticket.php" />
     <Compile Include="app\models\User.php" />
     <Compile Include="app\utils\Helpers.php" />
     <Compile Include="app\utils\Mailer.php" />
@@ -59,6 +63,7 @@
     <Compile Include="app\views\pages\seller\sell.php" />
     <Compile Include="app\views\pages\seller\validate_sell.php" />
     <Compile Include="app\views\pages\login\reset.php" />
+    <Compile Include="app\views\pages\lot\list.php" />
     <Compile Include="pure\bases\Controller.php" />
     <Compile Include="pure\bases\Enum.php" />
     <Compile Include="pure\bases\Exception.php" />
@@ -107,6 +112,7 @@
     <Folder Include="app" />
     <Folder Include="app\views\pages\admin\" />
     <Folder Include="app\views\pages\login\" />
+    <Folder Include="app\views\pages\lot\" />
     <Folder Include="app\views\pages\outlet\" />
     <Folder Include="app\views\pages\seller\" />
     <Folder Include="pure\bases" />

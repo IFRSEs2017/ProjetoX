@@ -36,6 +36,11 @@ use Pure\Utils\Auth;
 								<a class="nav-link" href="<?= DynamicHtml::link_to('outlet/list') ?>"><?= Res::str('menu_outlets') ?></a>
 							</li>
 						</ul>
+						<ul class="nav navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="<?= DynamicHtml::link_to('lot/list') ?>"><?= 'Lotes e ingressos' ?></a>
+							</li>
+						</ul>
 					<?php else: ?>
 						<?php /*<ul class="nav navbar-nav">
 							<li class="nav-item">

@@ -169,5 +169,6 @@ class OutletController extends Controller
 			Request::redirect('seller/index');
 		}
 		$this->data['user_name'] = $this->session->get('uinfo')->name;
+		$this->data['is_admin'] = true;
 	}
 }

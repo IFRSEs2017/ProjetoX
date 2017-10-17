@@ -6,8 +6,6 @@ use Pure\Utils\DynamicHtml;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use Pure\Utils\Hash;
-use Pure\Utils\Session;
-use Pure\Utils\Params;
 use Pure\Utils\Res;
 use App\Models\User;
 use App\Models\Password;
@@ -55,7 +53,7 @@ class LoginController extends Controller
 
 	public function first_access_action(){
 		if (Request::is_POST()) {
-			$email = Params::get_instance()->from_POST('email');
+			$email = $this->params->from_POST('email');
 			if (Helpers::email_validation($email)){
 				Request::redirect('login/send_reset/' . $email);
 			}
@@ -66,7 +64,7 @@ class LoginController extends Controller
 
 	public function forgot_action(){
 		if (Request::is_POST()) {
-			$email = Params::get_instance()->from_POST('email');
+			$email = $this->params->from_POST('email');
 			if (Helpers::email_validation($email)){
 				Request::redirect('login/send_reset/' . $email);
 			}
@@ -113,11 +111,11 @@ class LoginController extends Controller
 
 	public function reset_action()
 	{
-		$s = Session::get_instance();
+		$s = $this->session;
 		$reset = $s->get('reset');
 		if ($reset != false && $reset > (time() - 1800)){
 			if(Request::is_POST()){
-				$pass = Params::get_instance()->unpack('POST', ['re-password','password']);
+				$pass = $this->params->unpack('POST', ['re-password','password']);
 				if($pass && $pass['re-password'] == $pass['password']) {
 					if(strlen($pass['password']) < 6) {
 						$this->data['error_message'] = 'A senha necessita ter mais de 6 caracteres.';
@@ -158,8 +156,8 @@ class LoginController extends Controller
 
 	public function validate_reset_action()
 	{
-		$s = Session::get_instance();
-		$data = Params::get_instance()->unpack('GET', ['k','u']);
+		$s = $this->session;
+		$data = $this->params->unpack('GET', ['k','u']);
 		$reset = Reset::find(['user' => $data['u'], 'is_activated' => true]);
 		if(isset($data['k']) && $reset) {
 			if (strtotime($reset->created) > (time() - 1800)){
