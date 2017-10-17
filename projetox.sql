@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Out-2017 às 15:21
+-- Generation Time: 17-Out-2017 às 11:22
 -- Versão do servidor: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -34,12 +34,21 @@ CREATE TABLE `password` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Extraindo dados da tabela `password`
+-- Estrutura da tabela `reset`
 --
 
-INSERT INTO `password` (`id`, `iterations`, `password`, `salt`, `created`) VALUES
-(1, 5693, '5c728c35681d804269d510dff612abd40469ca2c0f23f8c0ca0cc01018687dc4', '150796902', '2017-10-03 15:04:45');
+CREATE TABLE `reset` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `iterations` int(10) UNSIGNED NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(255) NOT NULL,
+  `user` int(11) UNSIGNED NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_activated` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -49,19 +58,13 @@ INSERT INTO `password` (`id`, `iterations`, `password`, `salt`, `created`) VALUE
 
 CREATE TABLE `user` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `cpf` varchar(12) DEFAULT NULL,
   `password` int(10) UNSIGNED DEFAULT NULL,
-  `is_admin` tinyint(1) NOT NULL,
-  `is_actived` tinyint(1) NOT NULL
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `is_activated` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `user`
---
-
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `is_admin`, `is_actived`) VALUES
-(1, 'Administrador', 'admin@projetox.com', 1, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -74,10 +77,19 @@ ALTER TABLE `password`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `reset`
+--
+ALTER TABLE `reset`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user`),
+  ADD KEY `user` (`user`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cpf` (`cpf`),
   ADD KEY `password` (`password`),
   ADD KEY `PASSWORD_ID` (`password`);
 
@@ -89,15 +101,26 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `password`
 --
 ALTER TABLE `password`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `reset`
+--
+ALTER TABLE `reset`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `reset`
+--
+ALTER TABLE `reset`
+  ADD CONSTRAINT `reset_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`);
 
 --
 -- Limitadores para a tabela `user`
