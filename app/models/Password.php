@@ -11,4 +11,8 @@ use App\Models\Secret;
  */
 class Password extends Secret
 {
+	public function __construct($secret)
+	{
+		parent::__construct($secret);
+	}
 }

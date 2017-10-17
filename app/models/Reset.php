@@ -13,4 +13,9 @@ class Reset extends Secret
 {
 	public $user;
 	public $is_active;
+
+	public function __construct($secret)
+	{
+		parent::__construct($secret);
+	}
 }

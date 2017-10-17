@@ -17,4 +17,9 @@ class Ticket extends Secret
 	public $owner_name;
 	public $owner_email;
 	public $owner_cpf;
+
+	public function __construct($secret)
+	{
+		parent::__construct($secret);
+	}
 }
