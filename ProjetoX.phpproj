@@ -43,10 +43,15 @@
     <Compile Include="app\models\Secret.php" />
     <Compile Include="app\models\Ticket.php" />
     <Compile Include="app\models\User.php" />
+    <Compile Include="app\utils\mail\Exception.php" />
     <Compile Include="app\utils\Helpers.php" />
     <Compile Include="app\utils\Mailer.php" />
+    <Compile Include="app\utils\mail\OAuth.php" />
+    <Compile Include="app\utils\mail\PHPMailer.php" />
+    <Compile Include="app\utils\mail\POP3.php" />
     <Compile Include="app\utils\ReCaptcha.php" />
     <Compile Include="app\utils\ReCaptchaResponse.php" />
+    <Compile Include="app\utils\mail\SMTP.php" />
     <Compile Include="app\views\layouts\default.php" />
     <Compile Include="app\views\pages\admin\dashboard.php" />
     <Compile Include="app\views\pages\login\email.php" />
@@ -106,6 +111,7 @@
     <Folder Include="app\controllers" />
     <Folder Include="app\models" />
     <Folder Include="app\utils" />
+    <Folder Include="app\utils\mail\" />
     <Folder Include="app\views\layouts" />
     <Folder Include="app\views\pages" />
     <Folder Include="app\views" />

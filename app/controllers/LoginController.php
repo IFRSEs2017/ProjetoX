@@ -97,13 +97,15 @@ class LoginController extends Controller
 			$reset->user = $user->id;
 			Reset::save($reset);
 			$this->data['send'] = true;
-			$this->data['message'] = 'Um link para redefinir a senha já foi enviado para o e-mail:';
+			$this->data['message'] = 'Um link para redefinir a senha foi enviado para o e-mail:';
 			$this->data['email'] = $user->email;
 			if(PURE_ENV == 'development') {
 				echo '<br><br><br>'.DynamicHtml::link_to('login/validate_reset&k=' . $word . '&u=' . $user->id);
 			} else {
-				Mailer::send($user->email, 'Redefinir a senha', DynamicHtml::link_to('login/validate_reset&k=' . $word . '&u=' . $user->id));
+				Mailer::send_password_reset($user->name, $user->email, Res::str('app_title') . ' - Redefinir a senha', DynamicHtml::link_to('login/validate_reset&k=' . $word . '&u=' . $user->id));
 			}
+			$this->render('login/reset');
+			exit();
 		}
 		$this->data['message'] = 'Esse e-mail não está cadastrado.';
 		$this->render('login/reset');

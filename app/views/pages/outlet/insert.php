@@ -19,7 +19,6 @@ use Pure\Utils\Res;
 	<?php endif; ?>
 </div>
 
-
 <?php if(isset($errors)): ?>
 <?php foreach($errors as $value): ?>
 <div>
@@ -39,6 +38,9 @@ use Pure\Utils\Res;
 
 
 <div class='container'>
+	<br />
+	<h2>Novo usuário ou ponto de venda</h2>
+	<br />
 	<form action="<?= DynamicHtml::link_to('outlet/insert') ?>" method="POST">
 		<div class="form-group">
 			<label for="name">

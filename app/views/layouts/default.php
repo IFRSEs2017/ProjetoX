@@ -42,18 +42,20 @@ use Pure\Utils\Auth;
 							</li>
 						</ul>
 					<?php else: ?>
-						<?php /*<ul class="nav navbar-nav">
+						<ul class="nav navbar-nav">
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/index') ?>"><?= Res::str('menu_dashboard') ?></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/sell') ?>"><?= Res::str('menu_sell') ?></a>
 							</li>
+							<?php /*
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/validate_sell') ?>"><?= Res::str('menu_validate_sell') ?></a>
 							</li>
 						
-						</ul>*/?>
+						*/?>
+						</ul>
 					<?php endif; ?>
 				<?php endif; ?>
 			</ul>

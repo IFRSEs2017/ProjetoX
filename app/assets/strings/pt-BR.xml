@@ -2,7 +2,7 @@
 <xml>
   <items>
     <!-- Inicio das variaveis globais -->
-    <string name="app_title" value="Projeto X" />
+    <string name="app_title" value="ProjetoTPG" />
     <string name="email_label" value="Endereço de e-mail:" />
     <string name="email_sample" value="Digite seu e-mail" />
     <string name="password_label" value="Senha:" />
