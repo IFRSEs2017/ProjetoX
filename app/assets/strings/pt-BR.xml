@@ -39,6 +39,17 @@
     <string name="form_cpf" value="CPF" />
     <string name="form_rg" value="RG" />
 
+   <!-- Inicio das variaveis formulario de lotes-->
+    <string name="lot_amount" value="Quantidade" />
+    <string name="lot_start" value="Data de Início" />
+    <string name="lot_end" value="Data Final" />
+    <string name="lot_valuation" value="Valor" />
+    <string name="lot_is_activated" value="Ativar" />
+
+
+
+
+
 
     <string name="captcha" value="Você errou a senha muitas vezes. Prove-me que você não é um robô."/>
   </items>
