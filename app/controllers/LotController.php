@@ -42,16 +42,16 @@ class LotController extends Controller
 			$lot->creator = $this->session->get('uinfo')->id;
 			$lot->is_activated = 1;
 
-			if(count($errors) > 0){  
+			if(count($errors) > 0){
 				$this->data['errors'] = $errors;
 				$this->data['title'] = "Ops!";
 				$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
-				$this->data['user'] = $user;
+				$this->data['user'] = $this->session->get('uinfo')->id;
 			}else{
 				Lot::save($lot);
 				Request::redirect('lot/list');
 			}
-		}		
+		}
 		$this->render('lot/insert');
 	}
 
@@ -79,7 +79,7 @@ class LotController extends Controller
 				}
 			}
 	$this->render('lot/delete');
-			
+
 	}
 
 	public function update_action($id){
