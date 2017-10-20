@@ -117,4 +117,33 @@ class Helpers
 		}
 	}
 
+	public static function number_validation($number){
+		if(preg_match('/^[0-9]{1,4}$/', $number)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static function value_validation($value){
+		if(preg_match('/^[0-9]{2}(,|.)[0-9]{2}/', $value)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static function date_validation($date){
+		if(preg_match('/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}/', $date)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static function date_ajust($date){
+		$data = explode("-",$date);
+		$d=mktime(0,00,00,$data[1], $data[0], $data[2]);
+		return date("Y-m-d h:i:s" , $d);
+	}
 }

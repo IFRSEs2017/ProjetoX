@@ -13,6 +13,8 @@ use Pure\Utils\Auth;
     <title><?= Res::str('app_title') ?></title>
 	<?= DynamicHtml::link_css('bootstrap.min.css') ?>
 	<?= DynamicHtml::link_css('font-awesome.min.css') ?>
+	<?= DynamicHtml::link_css('bootstrap-datepicker.css') ?>
+
 	<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
 </head>
 <body>
@@ -79,5 +81,10 @@ use Pure\Utils\Auth;
 	<?= DynamicHtml::link_script('jquery-3.2.1.min.js') ?>
 	<?= DynamicHtml::link_script('popper.min.js') ?>
 	<?= DynamicHtml::link_script('bootstrap.min.js') ?>
+	<?= DynamicHtml::link_script('bootstrap-datepicker.min.js') ?>
+	<?= DynamicHtml::link_script('bootstrap-datepicker.pt-BR.min.js') ?>
+	<?= DynamicHtml::link_script('default.js') ?>
+
+
 </body>
 </html>
