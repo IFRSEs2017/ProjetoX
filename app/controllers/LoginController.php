@@ -195,7 +195,9 @@ class LoginController extends Controller
 	 */
 	public function before()
 	{
-
+		if(PURE_ENV != 'development') {
+			Request::require_ssl();
+		}
 		$allow = [new Route('login', 'exit')];
 		if(Auth::is_authenticated() && !Request::is_to($allow))
 		{
