@@ -83,9 +83,48 @@ class LotController extends Controller
 	}
 
 	public function update_action($id){
-		echo 'Update:<br>';
-		$item = Lot::find($id);
-		var_dump($item);
+		if (Request::is_POST()){
+		$data = $this->params->unpack('POST', ['lot_id', 'lot_amount', 'lot_valuation', 'start', 'end']);
+		$lot_db = Lot::find(['id' => intval($data['lot_id'])]);
+		if ($lot_db){
+			$errors = [];
+			Helpers::number_validation($data['lot_amount']) ? $lot_db->amount = $data['lot_amount'] : array_push($errors, 'Quantidade Inválido');
+			Helpers::value_validation($data['lot_valuation']) ? $lot_db->valuation = $data['lot_valuation'] : array_push($errors, 'Valor Inválido');
+			Helpers::date_validation($data['start']) ? $lot_db->start = Helpers::date_ajust($data['start']) : array_push($errors, 'Data de Início Inválido');
+			Helpers::date_validation($data['end']) ? $lot_db->end = Helpers::date_ajust($data['end']) : array_push($errors, 'Data Final Inválido');
+			$lot_db->creator = $this->session->get('uinfo')->id;
+
+			//$lot_db->is_activated = 1;
+			if(count($errors) > 0){
+				$this->data['errors'] = $errors;
+				$this->data['title'] = "Ops!";
+				$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
+		
+				$lot_db->start = Helpers::date_reajust($lot_db->start);
+				$lot_db->end = Helpers::date_reajust($lot_db->end);
+				
+				$this->data['lot'] = $lot_db;
+				$this->render('lot/update');
+				exit();
+			}else{
+				Lot::update(['amount' => $lot_db->amount, 'start' => $lot_db->start, 'end' => $lot_db->end, 'valuation' => $lot_db->valuation])
+					->where(['id' => $lot_db->id])
+					->execute();
+				Request::redirect('lot/list');
+			}
+		}
+	} else if (intval($id)) {
+		//atualiza lotes
+		$lot_db = Lot::find(['id' => intval($id)]);
+		$lot_db->start = Helpers::date_reajust($lot_db->start);
+		$lot_db->end = Helpers::date_reajust($lot_db->end);
+		
+		$this->data['lot'] = $lot_db;
+		$this->render('lot/update');
+		exit();
+
+	}
+	Request::redirect('lot/list');
 	}
 
 	/**

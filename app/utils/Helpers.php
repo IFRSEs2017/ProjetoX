@@ -126,7 +126,7 @@ class Helpers
 	}
 
 	public static function value_validation($value){
-		if(preg_match('/^[0-9]{2}(,|.)[0-9]{2}/', $value)){
+		if(preg_match('/^[0-9]{2}?|(,|.)[0-9]{2}/', $value)){
 			return true;
 		}else{
 			return false;
@@ -146,4 +146,11 @@ class Helpers
 		$d=mktime(0,00,00,$data[1], $data[0], $data[2]);
 		return date("Y-m-d h:i:s" , $d);
 	}
+
+	public static function date_reajust($date){
+		$data = explode(" ",$date);
+		$d = explode("-", $data[0]);
+		return $d[2] . "-" . $d[1] . "-" . $d[0];
+	}
+	
 }
