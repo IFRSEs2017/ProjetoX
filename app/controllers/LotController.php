@@ -12,7 +12,7 @@ class LotController extends Controller
 {
 
 	public function list_action(){
-		$this->data['list'] = Lot::find();
+		$this->data['list'] = Lot::select()->execute();
 		$this->render('lot/list');
 	}
 
@@ -35,8 +35,8 @@ class LotController extends Controller
 			$errors = [];
 			$lot = new Lot();
 
-			Helpers::number_validation($data['lot_amount']) ? $lot->amount = $data['lot_amount'] : array_push($errors, 'Quantidade Inválido');
-			Helpers::value_validation($data['lot_valuation']) ? $lot->valuation = $data['lot_valuation'] : array_push($errors, 'Valor Inválido');
+			Helpers::number_validation($data['lot_amount']) ? $lot->amount = intval($data['lot_amount']) : array_push($errors, 'Quantidade Inválido');
+			Helpers::value_validation($data['lot_valuation']) ? $lot->valuation = floatval($data['lot_valuation']) : array_push($errors, 'Valor Inválido');
 			Helpers::date_validation($data['start']) ? $lot->start = Helpers::date_ajust($data['start']) : array_push($errors, 'Data de Início Inválido');
 			Helpers::date_validation($data['end']) ? $lot->end = Helpers::date_ajust($data['end']) : array_push($errors, 'Data Final Inválido');
 			$lot->creator = $this->session->get('uinfo')->id;
@@ -69,16 +69,16 @@ class LotController extends Controller
 			Lot::delete()
 					->where(['id' => $lot->id])
 					->execute();
-				Request::redirect('lot/list');
-			}else {
-				$lot = Lot::find(['id' => intval($id)]);
-				if ($lot == false) {
-					$this->data['message'] = 'O lote que você está tentando excluir não existe.';
-				} else {
-					$this->data['lot'] = $lot;
-				}
+			Request::redirect('lot/list');
+		}else {
+			$lot = Lot::find(['id' => intval($id)]);
+			if ($lot == false) {
+				$this->data['message'] = 'O lote que você está tentando excluir não existe.';
+			} else {
+				$this->data['lot'] = $lot;
 			}
-	$this->render('lot/delete');
+		}
+		$this->render('lot/delete');
 
 	}
 

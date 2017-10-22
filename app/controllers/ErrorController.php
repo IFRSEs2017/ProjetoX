@@ -18,4 +18,8 @@ class ErrorController extends Controller
 	public function index_action(){
 		$this->render('error', 'default');
 	}
+
+	public function unknown_action(){
+		$this->render('unknown', 'default');
+	}
 }

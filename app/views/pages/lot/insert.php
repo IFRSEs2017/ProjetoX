@@ -52,17 +52,23 @@ use Pure\Utils\Res;
 				</label>
 				<input type="number" class="form-control" min="0" name="lot_amount" placeholder="" maxlength="255" />
 			</div>
-
 			<div class="form-group col-md-6">
 				<label for="valuation">
 					<legend>
 						<?= Res::str('lot_valuation') ?>
 					</legend>
 				</label>
-				<input type="" class="form-control" min="0" name="lot_valuation" placeholder="" maxlength="255" />
+
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-th">
+							R$
+						</span>
+					</div>
+					<input type="" class="form-control" min="0" name="lot_valuation" placeholder="" maxlength="255" />
+				</div>
 			</div>
 		</div>
-
 		<div class='row'>
 			<div class='col-md-6'>
 				<div class="form-group ">
@@ -71,7 +77,6 @@ use Pure\Utils\Res;
 							<?= Res::str('lot_start') ?>
 						</legend>
 					</label>
-
 					<div class="input-group date datepicker" data-provide="datepicker">
 						<input type="text" class="form-control" name="start" />
 						<div class="input-group-addon">
@@ -82,7 +87,6 @@ use Pure\Utils\Res;
 					</div>
 				</div>
 			</div>
-
 			<div class='col-md-6'>
 				<div class="form-group ">
 					<label for="end">
@@ -90,7 +94,6 @@ use Pure\Utils\Res;
 							<?= Res::str('lot_end') ?>
 						</legend>
 					</label>
-
 					<div class="input-group date datepicker" data-provide="datepicker">
 						<input type="text" class="form-control" name="end" />
 						<div class="input-group-addon">

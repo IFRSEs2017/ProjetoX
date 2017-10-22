@@ -77,68 +77,36 @@ class Helpers
 
 	public static function string_validation($string){
 		if(strlen($string) > 2){
-			if (preg_match('/^[A-Za-z0-9\s]*$/', $string)) {
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
+			return (preg_match('/^[A-Za-z0-9\s]*$/', $string));
 		}
-
-
+		return false;
 	}
 
 	public static function email_validation($email){
-		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			return true;
-		}else{
-			return false;
-		}
+		return (filter_var($email, FILTER_VALIDATE_EMAIL));
 	}
 
 	public static function cpf_validation($cpf){
 		if(strlen($cpf) != 11 ){
 			return false;
-		}else{
-			if(preg_match('/^[0-9]*$/', $cpf)){
-				return true;
-			}else{
-				return false;
-			}
 		}
+		return (preg_match('/^[0-9]*$/', $cpf));
 	}
 
 	public static function rg_validation($rg){
-		if(preg_match('/^[0-9]*$/', $rg)){
-			return true;
-		}else{
-			return false;
-		}
+		return (preg_match('/^[0-9]*$/', $rg));
 	}
 
 	public static function number_validation($number){
-		if(preg_match('/^[0-9]{1,4}$/', $number)){
-			return true;
-		}else{
-			return false;
-		}
+		return (preg_match('/^[0-9]{1,4}$/', $number));
 	}
 
 	public static function value_validation($value){
-		if(preg_match('/^[0-9]{2}(,|.)[0-9]{2}/', $value)){
-			return true;
-		}else{
-			return false;
-		}
+		return (floatval($value) != 0);
 	}
 
 	public static function date_validation($date){
-		if(preg_match('/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}/', $date)){
-			return true;
-		}else{
-			return false;
-		}
+		return (preg_match('/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}/', $date));
 	}
 
 	public static function date_ajust($date){

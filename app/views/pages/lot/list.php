@@ -44,10 +44,6 @@ use Pure\Utils\Res;
 					<br /><?= Helpers::date_format($list[$i]->start) ?> a <?= Helpers::date_format($list[$i]->end) ?>
 				</p>
 				<p class="lead">
-					<a class="btn btn-info btn-sm" href="<?= DynamicHtml::link_to('lot/see/' . $list[$i]->id); ?>" role="button">
-						<i class="fa fa-search" aria-hidden="true"></i>
-						Detalhes
-					</a>
 					<a class="btn btn-primary btn-sm" href="<?= DynamicHtml::link_to('lot/update/' . $list[$i]->id); ?>" role="button">
 						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 						Editar

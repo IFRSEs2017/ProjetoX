@@ -22,4 +22,13 @@ class Ticket extends Secret
 	{
 		parent::__construct($secret);
 	}
+
+	public static function count($lot_id)
+	{
+		return Ticket::select('COUNT(*) AS count')
+				->where(['lot' => $lot_id])
+				->execute()[0]
+				->count;
+	}
+
 }
