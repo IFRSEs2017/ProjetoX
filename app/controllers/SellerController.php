@@ -22,8 +22,11 @@ class SellerController extends Controller
 	 */
 	public function index_action()
 	{
-		$this->render('seller/dashboard', 'default');
+		$this->render('seller/dashboard');
+	}
 
+	public function sell_action(){
+		$this->render('seller/sell');
 	}
 
 	/**

@@ -40,6 +40,9 @@ use Pure\Utils\Session;
 
 
 <div class='container'>
+	<br />
+	<h2>Atualizar usuário ou ponto de venda</h2>
+	<br />
 	<form action="<?= DynamicHtml::link_to('outlet/update/' . $user->id) ?>" method="POST">
 		<div class="form-group">
 			<input type="text" class="form-control" name="form_id" placeholder="" value="<?= $user->id ?>" readonly hidden/ />

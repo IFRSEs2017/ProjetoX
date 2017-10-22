@@ -13,6 +13,8 @@ use Pure\Utils\Auth;
     <title><?= Res::str('app_title') ?></title>
 	<?= DynamicHtml::link_css('bootstrap.min.css') ?>
 	<?= DynamicHtml::link_css('font-awesome.min.css') ?>
+	<?= DynamicHtml::link_css('bootstrap-datepicker.css') ?>
+
 	<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
 </head>
 <body>
@@ -36,19 +38,26 @@ use Pure\Utils\Auth;
 								<a class="nav-link" href="<?= DynamicHtml::link_to('outlet/list') ?>"><?= Res::str('menu_outlets') ?></a>
 							</li>
 						</ul>
+						<ul class="nav navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="<?= DynamicHtml::link_to('lot/list') ?>"><?= 'Lotes e ingressos' ?></a>
+							</li>
+						</ul>
 					<?php else: ?>
-						<?php /*<ul class="nav navbar-nav">
+						<ul class="nav navbar-nav">
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/index') ?>"><?= Res::str('menu_dashboard') ?></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/sell') ?>"><?= Res::str('menu_sell') ?></a>
 							</li>
+							<?php /*
 							<li class="nav-item">
 								<a class="nav-link" href="<?= DynamicHtml::link_to('seller/validate_sell') ?>"><?= Res::str('menu_validate_sell') ?></a>
 							</li>
 						
-						</ul>*/?>
+						*/?>
+						</ul>
 					<?php endif; ?>
 				<?php endif; ?>
 			</ul>
@@ -74,5 +83,10 @@ use Pure\Utils\Auth;
 	<?= DynamicHtml::link_script('jquery-3.2.1.min.js') ?>
 	<?= DynamicHtml::link_script('popper.min.js') ?>
 	<?= DynamicHtml::link_script('bootstrap.min.js') ?>
+	<?= DynamicHtml::link_script('bootstrap-datepicker.min.js') ?>
+	<?= DynamicHtml::link_script('bootstrap-datepicker.pt-BR.min.js') ?>
+	<?= DynamicHtml::link_script('default.js') ?>
+
+
 </body>
 </html>

@@ -58,6 +58,15 @@ class Request
 		return false;
 	}
 
+	public static function require_ssl()
+	{
+		if($_SERVER["HTTPS"] != "on")
+		{
+			header("location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+			exit();
+		}
+	}
+
 	/**
 	 * Redireciona o usuário para uma página externa à aplicação
 	 *

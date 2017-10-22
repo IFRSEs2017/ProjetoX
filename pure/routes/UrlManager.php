@@ -112,7 +112,11 @@ class UrlManager
 		$info = pathinfo($path);
 		$hostname = $_SERVER['HTTP_HOST'];
 		$protocol = (isset($_SERVER['HTTPS'])) ? 'https://' : 'http://';
-		return $protocol . $hostname . $info['dirname'] . '/';
+		if (PURE_ENV == 'development') {
+		    return $protocol . $hostname . $info['dirname'] . '/';
+		} else {
+		    return $protocol . $hostname . $info['dirname'];
+		}
 	}
 
 	/**

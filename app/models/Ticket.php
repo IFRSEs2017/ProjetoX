@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-use App\Models\Secret;
+use Pure\Bases\Model;
 
 /**
  * Representa uma senha na camada de Modelagem,
@@ -9,10 +9,14 @@ use App\Models\Secret;
  * @version 1.0
  * @author Equipe Projeto X
  */
-class Reset extends Secret
+class Ticket extends Secret
 {
-	public $user;
-	public $is_active;
+	public $lot;
+	public $seller;
+	public $price;
+	public $owner_name;
+	public $owner_email;
+	public $owner_cpf;
 
 	public function __construct($secret)
 	{

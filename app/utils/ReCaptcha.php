@@ -78,9 +78,22 @@ class ReCaptcha
     private function _submitHTTPGet($path, $data)
     {
         $req = $this->_encodeQS($data);
-        $response = file_get_contents($path . $req);
+        $response = $this->url_get_contents($path . $req);
         return $response;
     }
+
+    private function url_get_contents ($Url) {
+        if (!function_exists('curl_init')){ 
+            die('CURL is not installed!');
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $Url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return $output;
+    }
+
     /**
 	 * Calls the reCAPTCHA siteverify API to verify whether the user passes
 	 * CAPTCHA test.
