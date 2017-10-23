@@ -1,15 +1,17 @@
 <?php
 namespace App\Controllers;
 use Pure\Bases\Controller;
+use Pure\Db\Database;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
-use Pure\Utils\Session;
+use Pure\Utils\Hash;
+use Pure\Utils\DynamicHtml;
+use Pure\Utils\Res;
 use App\Models\User;
 use App\Models\Lot;
 use App\Models\Ticket;
-use Pure\Utils\Hash;
 use App\Utils\Helpers;
-use Pure\Utils\DynamicHtml;
+use App\Utils\Mailer;
 
 /**
  * Controller principal
@@ -30,6 +32,15 @@ class SellerController extends Controller
 		$this->render('seller/dashboard');
 	}
 
+	/**
+	 * Realiza a venda de um ingresso,
+	 * criando uma chave de segurança que será
+	 * enviada por e-mail para o comprador
+	 *
+	 * Essa chave deverá permanecer em mãos
+	 * do usuário até o dia da festa, como comprovante
+	 * de compra e validação
+	 */
 	public function sell_action(){
 		if (Request::is_POST()) {
 			$errors = [];
@@ -37,42 +48,76 @@ class SellerController extends Controller
 			$ticket_secret = Hash::random_word(64);
 			$ticket = new Ticket($ticket_secret);
 			$lot = Lot::select_valid_lot();
-			if ($lot) {
+			// Caso exista um lote elegivel para venda
+			// e os dados enviados por parametros estejam corretos
+			if ($lot && $data) {
 				$ticket->lot = $lot->id;
 				$ticket->price = $lot->valuation;
 				$ticket->seller = $this->session->get('uinfo')->id;
-				Helpers::string_validation($data['form_name']) ? $ticket->owner_name = $data['form_name'] : array_push($errors, 'Nome inválido');
-				Helpers::email_validation($data['form_email']) ? $ticket->owner_email = $data['form_email'] : array_push($errors, 'E-mail inválido');
-				Helpers::cpf_validation($data['form_cpf']) ? $ticket->owner_cpf = $data['form_cpf'] : array_push($errors, 'CPF inválido');
+				// Valida os dados enviados por formulário
+				Helpers::string_validation($data['form_name']) ?
+					$ticket->owner_name = $data['form_name'] :
+					array_push($errors, 'Nome inválido');
+				Helpers::email_validation($data['form_email']) ?
+					$ticket->owner_email = $data['form_email'] :
+					array_push($errors, 'E-mail inválido');
+				Helpers::cpf_validation($data['form_cpf']) ?
+					$ticket->owner_cpf = $data['form_cpf'] :
+					array_push($errors, 'CPF inválido');
 				$other = Ticket::find(['owner_cpf' => $data['form_cpf']]);
 				if ($other) {
-					array_push($errors, 'Já foi vendido um ingresso para o CPF ' . $data['form_cpf'] . '.');
+					array_push($errors,
+						'Já foi vendido um ingresso para o CPF ' .
+						$data['form_cpf'] . '.');
 				}
-			} else {
-				array_push($errors, 'Lote inválido');
 			}
+			else {
+				array_push($errors, 'Lote inválido ou dados incorretos');
+			}
+			// Caso existe algum erro nos dados
+			// informados ou com o lote
 			if(count($errors) > 0){
 				$this->data['errors'] = $errors;
 				$this->data['title'] = "Ops!";
 				$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
 				$this->data['user'] = $this->session->get('uinfo')->id;
-			}else{
+			}
+			// Registra a compra em banco de dado
+			// e envia um e-mail para o usuário
+			// com seu cartão de acesso para a festa
+			else {
+				$db = Database::get_instance();
 				try {
+					$db->begin();
 					$id = Ticket::save($ticket);
-					$code = $this->create_qrcode($ticket_secret, $ticket->password);
+					$code = $this->create_qrcode($ticket_secret, $ticket->password, $id);
+					// Envia e-mail para o usuário
 					if(PURE_ENV != 'development') {
-						echo '<br><br><br>' . DynamicHtml::link_to('sell/validate&k=' . $ticket_secret . '&u=' . $id);
+						echo '<br><br><br>' .
+							DynamicHtml::link_to('ticket/validate&t=' .
+							$ticket_secret .
+							'&i=' . $id);
 					} else {
-						//Mailer::send_password_reset($user->name, $user->email, Res::str('app_title') . ' - Redefinir a senha', DynamicHtml::link_to('login/validate_reset&k=' . $word . '&u=' . $user->id));
+						Mailer::send_ticket(
+							$ticket->owner_name,
+							$ticket->owner_email,
+							Res::str('app_title') .
+							' - Seu ingresso virtual',
+							$code);
 					}
-					$this->data['message'] = 'O ingresso foi vendido com sucesso! <br> Confira seu e-mail para confirmar a venda:';
+					$this->data['message'] = 'O ingresso foi vendido com sucesso!' .
+						'<br> Confira seu e-mail para confirmar a venda:';
 					$this->data['email'] = $ticket->owner_email;
 					$this->data['qrcode'] = $code;
 					$this->render('seller/sold');
+					$db->commit();
 					exit();
-				} catch(\Exception $e)
-				{
-					//Mailer::send_bug();
+				// Caso não seja possível
+				// salvar em banco ou enviar o e-mail
+				// de confirmação, realiza rollback
+				} catch(\Exception $e) {
+					$db->rollback();
+					Mailer::bug_report($e);
 					Request::redirect('error/unknown');
 				}
 			}
@@ -86,6 +131,11 @@ class SellerController extends Controller
 		}
 	}
 
+	/**
+	 * Preenche parametros de lote nos dados
+	 * que irão para a view
+	 * @param mixed $lot lote atual
+	 */
 	private function set_lot_data($lot)
 	{
 		if ($lot) {
@@ -102,10 +152,18 @@ class SellerController extends Controller
 		}
 	}
 
-
-	private function create_qrcode($secret, $hash){
+	/**
+	 * Gera um QRCode que será salvo no servidor
+	 * e posteriormente enviado por e-mail para o usuário
+	 *
+	 * @param mixed $secret palavra secreta que define o ingresso
+	 * @param mixed $hash palavra encriptada com um segredo
+	 * @param mixed $id id do ticket
+	 * @return string
+	 */
+	private function create_qrcode($secret, $hash, $id){
 		include(BASE_PATH . 'app/utils/phpqrcode/qrlib.php');
-		$url = DynamicHtml::link_to('ticket/validation&t=' . $secret . '&u=' . $this->session->get('uinfo')->id);
+		$url = DynamicHtml::link_to('ticket/validate&t=' . $secret . '&i=' . $id);
 		$filename = BASE_PATH . 'app/assets/images/' . $hash . '.png';
 		$url = DynamicHtml::link_to('app/assets/images/' . $hash . '.png');
 		\QRcode::png($url, $filename, QR_ECLEVEL_L, 10);
@@ -114,6 +172,9 @@ class SellerController extends Controller
 
 	/**
 	 * Verifica se usuário está logado
+	 *
+	 * Somente vendedores poderão visualizar as opções
+	 * de venda de ingressos
 	 */
 	public function before()
 	{

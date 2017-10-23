@@ -24,7 +24,7 @@ use Pure\Utils\Res;
 	</h5>
 	<?php endif; ?>
 	<br />
-	<a href="<?= DynamicHtml::link_to('site/index/') ?>" class="btn btn-primary">
+	<a href="<?= DynamicHtml::link_to('seller/sell') ?>" class="btn btn-primary">
 		Voltar
 	</a>
 </div>

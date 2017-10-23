@@ -27,14 +27,18 @@ class Lot extends Model
 				FROM `ticket`
 				AS t WHERE t.lot = l.id)
 			< l.amount
-			ORDER BY l.start 
+			ORDER BY l.start
 			ASC LIMIT 1')->execute();
 		return ($lot ? $lot[0] : null);
 	}
 
 	public static function get_lot_number($id){
 		$lots = self::select('id')->order_by(['start' => 'ASC'])->execute();
-		return array_search($id, $lots) + 1;
+		$count = [];
+		foreach($lots as $lot) {
+			array_push($count, $lot->id);
+		}
+		return array_search($id, $count) + 1;
 	}
 
 

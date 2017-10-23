@@ -33,10 +33,17 @@ use Pure\Utils\Res;
 				</h1>
 				<p class="lead">
 					Valor do ingresso:
-					<span class="badge badge-warning">
+					<span class="badge badge-secondary">
 						R$ <?= number_format((float)$list[$i]->valuation, 2, ',', ''); ?>
 					</span>
-					<br /><?= $list[$i]->amount ?> ingressos
+					<br />Total de ingressos:
+					<span class="badge badge-secondary">
+						<?= $list[$i]->amount ?> ingressos
+					</span>
+                    <br />
+					<span class="badge badge-dark">
+						<?= $list[$i]->remain ?> ingressos restantes
+					</span>
 				</p>
 				<hr class="my-4" />
 				<p class="lead">
@@ -48,10 +55,22 @@ use Pure\Utils\Res;
 						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 						Editar
 					</a>
-					<a class="btn btn-danger btn-sm" href="<?= DynamicHtml::link_to('lot/delete/' . $list[$i]->id); ?>" role="button">
-						<i class="fa fa-trash-o" aria-hidden="true"></i>
-						Excluir
-					</a>
+					<?php if ($list[$i]->amount == $list[$i]->remain): ?>
+						<a class="btn btn-danger btn-sm" href="<?= DynamicHtml::link_to('lot/delete/' . $list[$i]->id); ?>" role="button">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+							Excluir
+						</a>
+					<?php else: ?>
+						<a class="btn btn-danger btn-sm disabled" href="<?= DynamicHtml::link_to('lot/delete/' . $list[$i]->id); ?>" role="button">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+							Excluir
+						</a>
+						<p style="color: red;">
+							O lote já começou a ser vedido.
+							<br /> 
+							Não é mais possível excluí-lo.
+						</p>
+					<?php endif; ?>
 				</p>
 			</div>
 		</div><?php endfor; ?>

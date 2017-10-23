@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 use Pure\Bases\Controller;
+
 /**
  * Controller de erro
  *
@@ -19,6 +20,11 @@ class ErrorController extends Controller
 		$this->render('error', 'default');
 	}
 
+	/**
+	 * Página para erros desconhecidos, na maioria das vezes
+	 * provenientes de tratamentos de exceptions disparadas pelos controllers
+	 * durante o transacoes no banco de dados
+	 */
 	public function unknown_action(){
 		$this->render('unknown', 'default');
 	}

@@ -89,7 +89,6 @@
     <Compile Include="app\views\pages\message.php" />
     <Compile Include="app\views\pages\seller\sell.php" />
     <Compile Include="app\views\pages\seller\sold.php" />
-    <Compile Include="app\views\pages\seller\validate_sell.php" />
     <Compile Include="app\views\pages\login\reset.php" />
     <Compile Include="app\views\pages\lot\list.php" />
     <Compile Include="pure\bases\Controller.php" />

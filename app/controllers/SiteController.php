@@ -3,7 +3,6 @@ namespace App\Controllers;
 use Pure\Bases\Controller;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
-use Pure\Utils\Session;
 use App\Models\User;
 
 /**
@@ -15,10 +14,10 @@ use App\Models\User;
 class SiteController extends Controller
 {
 	/**
-	 * M�todo carregado ao acessar a rota
+	 * Método carregado ao acessar a rota
 	 * ProjetoX/site/index e ProjetoX/
 	 *
-	 * Repons�vel por carregar a p�gina principal
+	 * Reponsável por carregar a página principal
 	 */
 	public function index_action()
 	{

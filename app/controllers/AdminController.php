@@ -3,7 +3,6 @@ namespace App\Controllers;
 use Pure\Bases\Controller;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
-use Pure\Utils\Session;
 use App\Models\User;
 
 /**
@@ -26,8 +25,13 @@ class AdminController extends Controller
 		$this->render('admin/dashboard');
 	}
 
+	/**
+	 * Controler de relatório.
+	 * Ainda não implementado.
+	 */
 	public function report_action()
 	{
+		Request::redirect('error/index');
 		$this->render('admin/report', 'default');
 	}
 
