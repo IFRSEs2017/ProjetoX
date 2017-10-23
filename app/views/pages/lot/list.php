@@ -66,7 +66,7 @@ use Pure\Utils\Res;
 							Excluir
 						</a>
 						<p style="color: red;">
-							O lote já começou a ser vedido.
+							O lote já começou a ser vendido.
 							<br /> 
 							Não é mais possível excluí-lo.
 						</p>

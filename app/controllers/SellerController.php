@@ -94,9 +94,9 @@ class SellerController extends Controller
 					// Envia e-mail para o usuário
 					if(PURE_ENV != 'development') {
 						echo '<br><br><br>' .
-							DynamicHtml::link_to('ticket/validate&t=' .
-							$ticket_secret .
-							'&i=' . $id);
+						DynamicHtml::link_to('ticket/validate&t=' .
+						$ticket_secret .
+						'&i=' . $id);
 					} else {
 						Mailer::send_ticket(
 							$ticket->owner_name,
@@ -112,10 +112,11 @@ class SellerController extends Controller
 					$this->render('seller/sold');
 					$db->commit();
 					exit();
-				// Caso não seja possível
-				// salvar em banco ou enviar o e-mail
-				// de confirmação, realiza rollback
-				} catch(\Exception $e) {
+					// Caso não seja possível
+					// salvar em banco ou enviar o e-mail
+					// de confirmação, realiza rollback
+				}
+				catch(\Exception $e) {
 					$db->rollback();
 					Mailer::bug_report($e);
 					Request::redirect('error/unknown');

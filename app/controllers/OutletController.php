@@ -144,7 +144,7 @@ class OutletController extends Controller
 					Mailer::bug_report($e);
 					Request::redirect('error/unknown');
 				}
-			// Algum erro na desativação
+				// Algum erro na desativação
 			} else {
 				$this->data['message'] = 'Não foi possível desativar o usuário.';
 			}
@@ -217,8 +217,8 @@ class OutletController extends Controller
 					try {
 						$db->begin();
 						User::update([
-							'name' => $user_db->name, 
-							'email' => $user_db->email, 
+							'name' => $user_db->name,
+							'email' => $user_db->email,
 							'is_admin' => $user_db->is_admin])
 							->where(['id' => $user_db->id])
 							->execute();

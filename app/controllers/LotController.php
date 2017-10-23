@@ -64,6 +64,10 @@ class LotController extends Controller
 				Helpers::date_validation($data['end']) ?
 					$lot->end = Helpers::date_ajust($data['end']) :
 					array_push($errors, 'Data Final Inválido');
+				if (count($errors) == 0 &&
+					strtotime($data['start']) > strtotime($data['end'])) {
+					array_push($errors, 'A data de inicio de vendas não pode ser superior a de final.');
+				}
 				$lot->creator = $this->session->get('uinfo')->id;
 				$lot->is_activated = 1;
 				// Caso existe um erro no formulário,
@@ -74,7 +78,7 @@ class LotController extends Controller
 					$this->data['title'] = "Ops!";
 					$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
 					$this->data['user'] = $this->session->get('uinfo')->id;
-				// Salva os dados em banco
+					// Salva os dados em banco
 				}else{
 					$db = Database::get_instance();
 					try {
@@ -118,7 +122,7 @@ class LotController extends Controller
 						'vendidos. <br>Considere alterar o lote ao invés de excluí-lo.';
 					$this->render('lot/delete');
 					exit();
-				// Realiza a exclusão no banco de dados
+					// Realiza a exclusão no banco de dados
 				} else {
 					$db = Database::get_instance();
 					try {
@@ -136,7 +140,7 @@ class LotController extends Controller
 					}
 				}
 			}
-		// Carrega a confirmação de exclusão
+			// Carrega a confirmação de exclusão
 		} else {
 			$lot = Lot::find(['id' => intval($id)]);
 			if ($lot == false) {
@@ -148,49 +152,99 @@ class LotController extends Controller
 		$this->render('lot/delete');
 	}
 
+	/**
+	 * Método que atualiza um lote do banco de dados
+	 *
+	 * GET - Mostra formulário de confirmação de atualização
+	 * POST - Realiza a atualização dos dados em banco
+	 *
+	 * @param mixed $id 
+	 */
 	public function update_action($id){
 		if (Request::is_POST()){
-		$data = $this->params->unpack('POST', ['lot_id', 'lot_amount', 'lot_valuation', 'start', 'end']);
-		$lot_db = Lot::find(['id' => intval($data['lot_id'])]);
-		if ($lot_db){
-			$errors = [];
-			Helpers::number_validation($data['lot_amount']) ? $lot_db->amount = $data['lot_amount'] : array_push($errors, 'Quantidade Inválido');
-			Helpers::value_validation($data['lot_valuation']) ? $lot_db->valuation = $data['lot_valuation'] : array_push($errors, 'Valor Inválido');
-			Helpers::date_validation($data['start']) ? $lot_db->start = Helpers::date_ajust($data['start']) : array_push($errors, 'Data de Início Inválido');
-			Helpers::date_validation($data['end']) ? $lot_db->end = Helpers::date_ajust($data['end']) : array_push($errors, 'Data Final Inválido');
-			$lot_db->creator = $this->session->get('uinfo')->id;
-
-			//$lot_db->is_activated = 1;
-			if(count($errors) > 0){
-				$this->data['errors'] = $errors;
-				$this->data['title'] = "Ops!";
-				$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
-		
-				$lot_db->start = Helpers::date_reajust($lot_db->start);
-				$lot_db->end = Helpers::date_reajust($lot_db->end);
-				
-				$this->data['lot'] = $lot_db;
-				$this->render('lot/update');
-				exit();
-			}else{
-				Lot::update(['amount' => $lot_db->amount, 'start' => $lot_db->start, 'end' => $lot_db->end, 'valuation' => $lot_db->valuation])
-					->where(['id' => $lot_db->id])
-					->execute();
-				Request::redirect('lot/list');
+			$data = $this->params->unpack('POST', ['lot_id', 'lot_amount', 'lot_valuation', 'start', 'end']);
+			if($data) {
+				$lot_db = Lot::find(['id' => intval($data['lot_id'])]);
+				if ($lot_db){
+					$errors = [];
+					// Validação dos campos de lote
+					// Verifica a integridade dos dados
+					Helpers::number_validation($data['lot_amount']) ?
+						$lot_db->amount = $data['lot_amount'] :
+						array_push($errors, 'Quantidade Inválido');
+					Helpers::value_validation($data['lot_valuation']) ?
+						$lot_db->valuation = $data['lot_valuation'] :
+						array_push($errors, 'Valor Inválido');
+					Helpers::date_validation($data['start']) ?
+						$lot_db->start = Helpers::date_ajust($data['start']) :
+						array_push($errors, 'Data de ínicio inválida');
+					Helpers::date_validation($data['end']) ?
+						$lot_db->end = Helpers::date_ajust($data['end']) :
+						array_push($errors, 'Data de final inválida');
+					// Verifica se a data de inicio é anterior a data de final
+					if (count($errors) == 0 &&
+						strtotime($lot_db->start) > strtotime($lot_db->end)) {
+						array_push($errors, 'A data de inicio de vendas não pode ser superior a de final.');
+					}
+					// Verifica se o usuário não está
+					// tentando diminuir a quantidade de ingressos
+					// para menos do que já foi vendido
+					if($lot_db->amount < Ticket::count($lot_db->id)) {
+						array_push($errors, 'Você não pode diminuir a quantidade de ingressos' .
+							' para menos do que já foi vendido. ');
+					}
+					$lot_db->creator = $this->session->get('uinfo')->id;
+					// Se houver algum erro na validação do formulário
+					if(count($errors) > 0){
+						$this->data['errors'] = $errors;
+						$this->data['title'] = "Ops!";
+						$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
+						$lot_db->start = Helpers::date_reajust($lot_db->start);
+						$lot_db->end = Helpers::date_reajust($lot_db->end);
+						$this->data['lot'] = $lot_db;
+						$this->render('lot/update');
+						exit();
+					}
+					// Caso não exista nenhum erro
+					// realiza a atualização no banco de dados
+					else{
+						$db = Database::get_instance();
+						try {
+							// Realiza a migração no banco de dados
+							$db->begin();
+							Lot::update([
+								'amount' => $lot_db->amount,
+								'start' => $lot_db->start,
+								'end' => $lot_db->end,
+								'valuation' => $lot_db->valuation])
+								->where(['id' => $lot_db->id])
+								->execute();
+							$db->commit();
+							Request::redirect('lot/list');
+						}
+						catch(\Exception $e) {
+							$db->rollback();
+							Mailer::bug_report($e);
+							Request::redirect('error/unknown');
+						}
+					}
+				}
 			}
+			// Caso o formulário não seja válido
+			else {
+				Request::redirect('error/index');
+			}
+		} else if (intval($id)) {
+			// Realiza carregamento do formulário de
+			// atualização de lotes
+			$lot_db = Lot::find(['id' => intval($id)]);
+			$lot_db->start = Helpers::date_reajust($lot_db->start);
+			$lot_db->end = Helpers::date_reajust($lot_db->end);
+			$this->data['lot'] = $lot_db;
+			$this->render('lot/update');
+			exit();
 		}
-	} else if (intval($id)) {
-		//atualiza lotes
-		$lot_db = Lot::find(['id' => intval($id)]);
-		$lot_db->start = Helpers::date_reajust($lot_db->start);
-		$lot_db->end = Helpers::date_reajust($lot_db->end);
-		
-		$this->data['lot'] = $lot_db;
-		$this->render('lot/update');
-		exit();
-
-	}
-	Request::redirect('lot/list');
+		Request::redirect('lot/list');
 	}
 
 	/**

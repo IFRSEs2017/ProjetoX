@@ -251,9 +251,9 @@ class LoginController extends Controller
 			}
 			$this->render('login/password');
 			exit();
-		// Dados de session inexistentes ou fora de
-		// validade
-		// Limpa os dados de session e de banco de dados
+			// Dados de session inexistentes ou fora de
+			// validade
+			// Limpa os dados de session e de banco de dados
 		} else {
 			$reset = Reset::find(['user' => $s->get('reset_id'), 'is_activated' => true]);
 			if($reset) {
@@ -266,7 +266,8 @@ class LoginController extends Controller
 					$s->wipe('reset');
 					$s->wipe('reset_id');
 					$db->commit();
-				} catch(\Exception $e) {
+				}
+				catch(\Exception $e) {
 					$db->rollback();
 					Mailer::bug_report($e);
 					Request::redirect('error/unknown');
@@ -299,9 +300,9 @@ class LoginController extends Controller
 					Request::redirect('login/reset');
 					exit();
 				}
-			// Pedido antigo de mais,
-			// é necessário limpar os dados de alteração de senha
-			// no banco de dados
+				// Pedido antigo de mais,
+				// é necessário limpar os dados de alteração de senha
+				// no banco de dados
 			} else {
 				$db = Database::get_instance();
 				try {
@@ -310,7 +311,8 @@ class LoginController extends Controller
 						->where(['id' => $reset->id])
 						->execute();
 					$db->commit();
-				} catch(\Exception $e) {
+				}
+				catch(\Exception $e) {
 					$db->rollback();
 					Mailer::bug_report($e);
 					Request::redirect('error/unknown');
@@ -335,7 +337,7 @@ class LoginController extends Controller
 
 	/**
 	 * Verifica se o usuário está logado e tentando acessar a página de login
-	 * 
+	 *
 	 * Exige a utilização de SSL para acessar a página
 	 */
 	public function before()
@@ -361,24 +363,24 @@ class LoginController extends Controller
 		$this->generate_captcha();
 		$user = User::find(['email' => $credential['email'], 'is_activated' => true]);
 		// Verifica se o captcha foi verificado
-		if (!$this->validate_captcha()) 
+		if (!$this->validate_captcha())
 		{
 			$this->data['error_message'] = Res::str('captcha');
-		} 
+		}
 		// Verifica se o usuário existe
-		else if($user === null) 
+		else if($user === null)
 		{
 			$this->data['error_message'] = Res::str('wrong_email');
-		} 
+		}
 		// Verifica se o usuário tem senha cadastrada
 		else if (Password::find(['id' => $user->password]) === null) {
 			$this->data['error_message'] = 'Nenhuma senha cadastrada. Clique em "Primeiro acesso"';
-		} 
+		}
 		// Verifica a senha enviada
 		else if (!Password::compare(Password::find($user->password), $credential['password'])) {
 			$this->data['error_message'] = Res::str('wrong_password');
 			$this->data['old_email'] =  $credential['email'];
-		} 
+		}
 		// Realiza a autenticação
 		else {
 			Auth::authenticate($user->id, $user);
@@ -388,7 +390,7 @@ class LoginController extends Controller
 	}
 
 	/**
-	 * Gera o captcha a partir de 10 tentivas a partir 
+	 * Gera o captcha a partir de 10 tentivas a partir
 	 * de um intervaulo de 1800 segundos
 	 */
 	private function generate_captcha(){
@@ -408,8 +410,8 @@ class LoginController extends Controller
 
 	/**
 	 * Valida o captcha digitado pelo usuário
-	 * Caso exista a necessidade 
-	 * @return boolean 
+	 * Caso exista a necessidade
+	 * @return boolean
 	 */
 	private function validate_captcha() {
 		$s = $this->session;
