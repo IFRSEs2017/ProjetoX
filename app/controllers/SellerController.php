@@ -166,9 +166,8 @@ class SellerController extends Controller
 		include(BASE_PATH . 'app/utils/phpqrcode/qrlib.php');
 		$url = DynamicHtml::link_to('ticket/validate&t=' . $secret . '&i=' . $id);
 		$filename = BASE_PATH . 'app/assets/images/' . $hash . '.png';
-		$url = DynamicHtml::link_to('app/assets/images/' . $hash . '.png');
 		\QRcode::png($url, $filename, QR_ECLEVEL_L, 10);
-		return $url;
+		return DynamicHtml::link_to('app/assets/images/' . $hash . '.png');
 	}
 
 	/**
