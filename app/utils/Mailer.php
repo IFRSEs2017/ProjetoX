@@ -2,6 +2,7 @@
 namespace App\Utils;
 use Pure\Utils\Res;
 use App\Utils\Mail\PHPMailer;
+use Pure\Utils\DynamicHtml;
 
 /**
  * Mailer short summary.
@@ -60,7 +61,7 @@ class Mailer
 	 * @param mixed $name nome do cliente
 	 * @param mixed $to e-mail do cliente
 	 * @param mixed $title título do e-mail
-	 * @param mixed $content link para o QRCode
+	 * @param mixed $content nome QRCode
 	 * @return boolean
 	 */
 	public static function send_ticket($name, $to, $title, $content){
@@ -68,6 +69,7 @@ class Mailer
 			var_dump($content);
 			return true;
 		}
+		$local = BASE_PATH . 'app/assets/images/' . $content . '.png';
 		$mail = new PHPMailer(true);
 		try {
 			$mail->Host = SMPT_HOST;
@@ -81,17 +83,30 @@ class Mailer
 			$mail->AddReplyTo(SMPT_EMAIL, Res::str('app_title') . ' Não responda');
 			$mail->Subject = $title;
 			$mail->AddAddress($to, $name);
+			$mail->IsHTML(true);
+			$mail->AddEmbeddedImage($local, 'ticket_img.png', "ticket_img.png");
+			$mail->addAttachment($local, 'ingresso.png');
 			$mail->MsgHTML('Olá, ' . $name . '<br><br><br>' .
 				'Obrigado por comprar o ingresso para a Festa do TPG!<br>' .
-				'Guarde ou imprima esse e-mail e apresente-o no dia da festa.<br><br>' .
-				'Seu ingresso virtual:<br>' .
-				'<img src=' . $content . '/>');
-			$mail->send(); 
+				'Guarde ou imprima esse e-mail e apresente no dia da festa.<br><br>' .
+				'Seu ingresso virtual:<br><img src="cid:ticket_img.png"/><br><br>' .
+				'Caso o QRCode não apareça, <b>clique <a href="' .
+				DynamicHtml::link_to('app/assets/images/' . $content . '.png') .
+				'">aqui</a>');
+			$mail->send();
 			return true;
 		}
 		catch (Exception $e) {
 			return false;
 		}
+	}
+
+	private static function data_uri($file, $mime)
+	{
+		$contents = Helpers::url_get_contents($file);
+		var_dump($contents);
+		$base64   = base64_encode($contents);
+		return ('data:' . $mime . ';base64,' . $base64);
 	}
 
 	/**

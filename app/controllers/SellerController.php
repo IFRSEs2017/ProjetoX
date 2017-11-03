@@ -92,7 +92,7 @@ class SellerController extends Controller
 					$id = Ticket::save($ticket);
 					$code = $this->create_qrcode($ticket_secret, $ticket->password, $id);
 					// Envia e-mail para o usuário
-					if(PURE_ENV != 'development') {
+					if(PURE_ENV == 'development') {
 						echo '<br><br><br>' .
 						DynamicHtml::link_to('ticket/validate&t=' .
 						$ticket_secret .
@@ -108,7 +108,7 @@ class SellerController extends Controller
 					$this->data['message'] = 'O ingresso foi vendido com sucesso!' .
 						'<br> Confira seu e-mail para confirmar a venda:';
 					$this->data['email'] = $ticket->owner_email;
-					$this->data['qrcode'] = $code;
+					$this->data['qrcode'] = DynamicHtml::link_to('app/assets/images/' . $code . '.png');
 					$this->render('seller/sold');
 					$db->commit();
 					exit();
@@ -167,7 +167,7 @@ class SellerController extends Controller
 		$url = DynamicHtml::link_to('ticket/validate&t=' . $secret . '&i=' . $id);
 		$filename = BASE_PATH . 'app/assets/images/' . $hash . '.png';
 		\QRcode::png($url, $filename, QR_ECLEVEL_L, 10);
-		return DynamicHtml::link_to('app/assets/images/' . $hash . '.png');
+		return $hash;
 	}
 
 	/**
