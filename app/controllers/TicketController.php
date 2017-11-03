@@ -146,13 +146,7 @@ class TicketController extends Controller
 		Request::redirect('ticket/list');
 	}
 
-	/**
-<<<<<<< HEAD
-	 * Controller ainda n�o utilizado
-=======
-	 * Controller ainda não utilizado
->>>>>>> 9e9d672442f7327b911a9d961c1456e8fb57b198
-	 */
+
 	public function before()
 	{
 		if (!Auth::is_authenticated())
