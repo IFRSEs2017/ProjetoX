@@ -21,7 +21,7 @@ class ErrorController extends Controller
 	}
 
 	/**
-	 * Página para erros desconhecidos, na maioria das vezes
+	 * PÃ¡gina para erros desconhecidos, na maioria das vezes
 	 * provenientes de tratamentos de exceptions disparadas pelos controllers
 	 * durante o transacoes no banco de dados
 	 */

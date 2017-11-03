@@ -24,7 +24,7 @@ class TicketController extends Controller
 	public function update_action(){}
 
 	/**
-	 * Controller ainda n„o utilizado
+	 * Controller ainda n√£o utilizado
 	 */
 	public function before()
 	{
