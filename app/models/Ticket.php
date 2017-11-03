@@ -31,4 +31,6 @@ class Ticket extends Secret
 				->count;
 	}
 
+	
+
 }

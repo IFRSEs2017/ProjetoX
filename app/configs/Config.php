@@ -30,6 +30,7 @@ class Config
 			'DefaultErrorRoute' => new Route('Error', 'index'),
 			'AdminRoute' => new Route('Admin', 'index'),
 			'SellerRoute' => new Route('Seller', 'index'),
+			'TicketRoute' => new Route('Ticket', 'list'),
 			
 		];
 	}

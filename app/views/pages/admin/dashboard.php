@@ -24,6 +24,10 @@ use Pure\Utils\DynamicHtml;
 				<p class="lead">
 					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('lot/list'); ?>" role="button">Começar</a>
 				</p>
+				<p>Alterar dados de ingressos vendidos.</p>
+				<p class="lead">
+					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('ticket/list'); ?>" role="button">Editar</a>
+				</p>
 			</div>
 		</div>
 		<div class="col-md">
