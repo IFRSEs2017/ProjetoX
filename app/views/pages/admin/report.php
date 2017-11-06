@@ -7,13 +7,20 @@ use App\Utils\Helpers;
 <br />
 <br />
 <br />
-<div class="row">
-	<div class="col-md">
-		<div id="last_mount_ticket_count" style="height: 350px"> </div>
+<div class="container">
+	<h3>Informações</h3>
+	<hr class="my-12" />
+
+	<h3>Gráficos do mês</h3>
+	<hr class="my-12" />
+	<div class="row">
+		<div class="col-md">
+			<div id="last_mount_ticket_count"></div>
+		</div>
+		<div class="col-md">
+			<div id="last_mount_ticket_fature"></div>
+		</div>
 	</div>
-    <div class="col-md">
-        <div id="last_mount_ticket_fature" style="height: 350px"></div>
-    </div>
 </div>
 
 <script>

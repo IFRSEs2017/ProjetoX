@@ -67,7 +67,7 @@ class AdminController extends Controller
 		for($i = 0; $i < count($range); $i++) {
 			$array[$range[$i]] = '0';
 			foreach($obj_arr as $obj) {
-				if (Helpers::date_format($obj->y) == $range[$i]) {
+				if (Helpers::date_format($obj->y, 'd/m') == $range[$i]) {
 					$array[$range[$i]] = $obj->x;
 					break;
 				}

@@ -37,10 +37,10 @@ class Helpers
 	 * @param mixed $time data padrão americano
 	 * @return string data
 	 */
-	public static function date_format($time)
+	public static function date_format($time, $out_format = 'd/m/Y')
 	{
 		$timestamp = strtotime($time);
-		return date('d/m/Y', $timestamp);
+		return date($out_format, $timestamp);
 	}
 
 	/**
@@ -135,7 +135,7 @@ class Helpers
 		return $str;
 	}
 
-	public static function date_range($first, $last, $step = '+1 day', $output_format = 'd/m/Y' ) {
+	public static function date_range($first, $last, $step = '+1 day', $output_format = 'd/m' ) {
 		$dates = array();
 		$current = strtotime($first);
 		$last = strtotime($last);
