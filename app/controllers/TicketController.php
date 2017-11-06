@@ -27,7 +27,7 @@ class TicketController extends Controller
 			->execute();
 		$this->data['list'] = $tickets;
 		$this->render('ticket/list');
-		
+
 	}
 
 	public function insert_action(){}
@@ -46,7 +46,7 @@ class TicketController extends Controller
 						->where(['id' => $ticket->id])
 						->execute();
 					$db->commit();
-					Request::redirect('ticket/list');				
+					Request::redirect('ticket/list');
 				}
 				catch(\Exception $e)
 				{
@@ -99,7 +99,7 @@ class TicketController extends Controller
 				Helpers::cpf_validation($data['owner_cpf']) ?
 					$ticket_db->owner_cpf = $data['owner_cpf'] :
 					array_push($errors, 'CPF Inválido');
-				
+
 				// Caso exista algum erro no formulário
 				if(count($errors) > 0){
 					$this->data['errors'] = $errors;
@@ -153,6 +153,7 @@ class TicketController extends Controller
 		{
 			Request::redirect('login/do');
 		}
+		$this->data['is_admin'] = true;
 		//Request::redirect('error/index');
 	}
 }

@@ -75,7 +75,7 @@ use Pure\Utils\Res;
 					<br />Somente números
 				</small>
 			</label>
-			<input type="text" class="form-control" name="form_cpf" placeholder="" maxlength="255" value="<?= $user->name ?>" />
+			<input type="text" class="form-control" name="form_cpf" placeholder="" maxlength="11" value="<?= $user->name ?>" />
 		</div>
 		<div class="form-group">
 			<label for="email">

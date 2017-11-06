@@ -72,6 +72,9 @@
     <Compile Include="app\utils\mail\SMTP.php" />
     <Compile Include="app\views\layouts\default.php" />
     <Compile Include="app\views\pages\admin\dashboard.php" />
+    <Compile Include="app\views\pages\ticket\delete.php" />
+    <Compile Include="app\views\pages\ticket\list.php" />
+    <Compile Include="app\views\pages\ticket\update.php" />
     <Compile Include="app\views\pages\unknown.php" />
     <Compile Include="app\views\pages\login\email.php" />
     <Compile Include="app\views\pages\login\password.php" />
@@ -156,6 +159,7 @@
     <Folder Include="app\views\pages\lot\" />
     <Folder Include="app\views\pages\outlet\" />
     <Folder Include="app\views\pages\seller\" />
+    <Folder Include="app\views\pages\ticket\" />
     <Folder Include="pure\bases" />
     <Folder Include="pure\db" />
     <Folder Include="pure\exceptions" />

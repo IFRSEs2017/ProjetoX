@@ -25,7 +25,8 @@ use Pure\Utils\Res;
 				<th>Nome</th>
 				<th>E-mail</th>
 				<th>CPF</th>
-				<th>Valor</th>
+				<th>Valor da venda</th>
+				<th>Opções</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,11 +41,10 @@ use Pure\Utils\Res;
 				</td>
 
 				<td>
-					<?= $ticket->owner_cpf; ?>
+					<?= Helpers::format_cpf($ticket->owner_cpf); ?>
 				</td>
-
 				<td>
-					<?= $ticket->price; ?>
+					R$ <?= number_format((float)$ticket->price, 2, ',', ''); ?> 
 				</td>
 				<td>
 					<a href="<?= DynamicHtml::link_to('ticket/update/' . $ticket->id) ?>" class="btn btn-primary btn-sm">

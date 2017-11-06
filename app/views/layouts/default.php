@@ -50,6 +50,10 @@ use Pure\Routes\Route;
 						<?= 'Lotes e ingressos' ?>
 					</a>
 				</li>
+                <li class="nav-item <?= Request::is_to([new Route('ticket', 'list')]) ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= DynamicHtml::link_to('ticket/list') ?>"><?= 'Edição de ingressos' ?>
+                    </a>
+                </li>
 				<?php else: ?>
 				<li class="nav-item <?= Request::is_to([new Route('seller', 'index')]) ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= DynamicHtml::link_to('seller/index') ?>">
