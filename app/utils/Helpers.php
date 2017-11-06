@@ -77,7 +77,7 @@ class Helpers
 
 	public static function string_validation($string){
 		if(strlen($string) > 2){
-			return (preg_match('/^[A-Za-z0-9\s]*$/', $string));
+			return (!preg_match('/[\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+/i', $string));
 		}
 		return false;
 	}
@@ -147,5 +147,5 @@ class Helpers
 
 		return $dates;
 	}
-	
+
 }
