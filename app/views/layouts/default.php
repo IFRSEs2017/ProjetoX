@@ -18,6 +18,7 @@ use Pure\Routes\Route;
 	<?= DynamicHtml::link_css('bootstrap.min.css') ?>
 	<?= DynamicHtml::link_css('font-awesome.min.css') ?>
 	<?= DynamicHtml::link_css('bootstrap-datepicker.css') ?>
+	<?= DynamicHtml::link_script('plotly-latest.min.js') ?>
 
 	<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
 </head>

@@ -24,9 +24,9 @@ use Pure\Utils\DynamicHtml;
 				<p class="lead">
 					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('lot/list'); ?>" role="button">Começar</a>
 				</p>
-				<p>Alterar dados de ingressos vendidos.</p>
+				<p><b>Alterar</b> dados de ingressos vendidos.</p>
 				<p class="lead">
-					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('ticket/list'); ?>" role="button">Editar</a>
+					<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('ticket/list'); ?>" role="button">Alterar</a>
 				</p>
 			</div>
 		</div>
@@ -35,12 +35,9 @@ use Pure\Utils\DynamicHtml;
 				<h1 class="display-4">Relatórios</h1>
 				<p class="lead">Gere relatórios de vendas e controle os ingressos da sua festa.</p>
 				<hr class="my-4" />
-				<p> Essa funcionalidade será liberada em breve.</p>
+				<p> Gere <b>relatório</b> de venda de ingressos, valor arrecadado e <b>lista</b> de usuários.</p>
 				<p class="lead">
-					<a class="btn btn-secondary btn-lg" href="#" style="pointer-events: none; cursor: default;"
-						role="button">
-						Em breve
-					</a>
+                    <a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('admin/report'); ?>" role="button">Começar</a>
 				</p>
 			</div>
 		</div>

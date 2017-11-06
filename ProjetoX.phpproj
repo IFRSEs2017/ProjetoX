@@ -172,8 +172,11 @@
     <Content Include="app\assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="app\assets\fonts\FontAwesome.otf" />
     <Content Include="app\assets\images\email.png" />
+    <Content Include="app\assets\scripts\bootstrap-datepicker.min.js" />
+    <Content Include="app\assets\scripts\bootstrap-datepicker.pt-BR.min.js" />
     <Content Include="app\assets\scripts\bootstrap.js" />
     <Content Include="app\assets\scripts\bootstrap.min.js" />
+    <Content Include="app\assets\scripts\plotly-latest.min.js" />
     <Content Include="app\assets\stylesheets\font-awesome.css" />
     <Content Include="app\assets\stylesheets\font-awesome.min.css" />
     <Content Include="app\assets\scripts\jquery-3.2.1.min.js" />

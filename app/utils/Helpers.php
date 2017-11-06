@@ -120,4 +120,32 @@ class Helpers
 		$d = explode("-", $data[0]);
 		return $d[2] . "-" . $d[1] . "-" . $d[0];
 	}
+
+	public static function keys_to_js_array($arr) {
+		$str = '[';
+		$str .= '\'' . implode('\', \'', array_keys($arr)) . '\'' ;
+		$str .= ']';
+		return $str;
+	}
+
+	public static function values_to_js_array($arr) {
+		$str = '[';
+		$str .= '\'' . implode('\', \'', $arr) . '\'' ;
+		$str .= ']';
+		return $str;
+	}
+
+	public static function date_range($first, $last, $step = '+1 day', $output_format = 'd/m/Y' ) {
+		$dates = array();
+		$current = strtotime($first);
+		$last = strtotime($last);
+
+		while( $current <= $last ) {
+			$dates[] = date($output_format, $current);
+			$current = strtotime($step, $current);
+		}
+
+		return $dates;
+	}
+	
 }

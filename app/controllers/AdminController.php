@@ -4,6 +4,8 @@ use Pure\Bases\Controller;
 use Pure\Utils\Request;
 use Pure\Utils\Auth;
 use App\Models\User;
+use App\Models\Ticket;
+use App\Utils\Helpers;
 
 /**
  * Controller principal
@@ -31,8 +33,11 @@ class AdminController extends Controller
 	 */
 	public function report_action()
 	{
-		Request::redirect('error/index');
-		$this->render('admin/report', 'default');
+		$counts = Ticket::last_month_count();
+		$this->data['last_month_count'] = $this->range_to_chart($counts, 'last month', 'today');
+		$fature = Ticket::last_month_fature();
+		$this->data['last_month_fature'] = $this->range_to_chart($fature, 'last month', 'today');
+		$this->render('admin/report');
 	}
 
 	/**
@@ -51,6 +56,24 @@ class AdminController extends Controller
 
 		$this->data['user_name'] = $this->session->get('uinfo')->name;
 		$this->data['is_admin'] = true;
+	}
+
+	private function range_to_chart($obj_arr, $start, $end){
+		$array = [];
+		$range = Helpers::date_range(
+			date('Y-m-d', strtotime($start)),
+			date('Y-m-d', strtotime($end))
+		);
+		for($i = 0; $i < count($range); $i++) {
+			$array[$range[$i]] = '0';
+			foreach($obj_arr as $obj) {
+				if (Helpers::date_format($obj->y) == $range[$i]) {
+					$array[$range[$i]] = $obj->x;
+					break;
+				}
+			}
+		}
+		return $array;
 	}
 
 }

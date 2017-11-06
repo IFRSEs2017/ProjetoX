@@ -1,6 +1,5 @@
 <?php
 namespace App\Models;
-use Pure\Bases\Model;
 
 /**
  * Representa uma senha na camada de Modelagem,
@@ -25,12 +24,26 @@ class Ticket extends Secret
 
 	public static function count($lot_id)
 	{
-		return Ticket::select('COUNT(*) AS count')
+		return self::select('COUNT(*) AS count')
 				->where(['lot' => $lot_id])
 				->execute()[0]
 				->count;
 	}
 
-	
+
+	public static function last_month_count() {
+		return self::build('SELECT date(`ticket`.`created`) AS y, COUNT(`ticket`.`id`) AS x ' .
+				'FROM `ticket` ' .
+				'WHERE `ticket`.`created` BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW() ' .
+				'GROUP BY y')->execute();
+	}
+
+	public static function last_month_fature() {
+		return self::build('SELECT date(`ticket`.`created`) AS y, SUM(`ticket`.`price`) AS x ' .
+				'FROM `ticket` ' .
+				'WHERE `ticket`.`created` BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW() ' .
+				'GROUP BY y')->execute();
+	}
+
 
 }
