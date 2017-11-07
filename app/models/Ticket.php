@@ -45,5 +45,8 @@ class Ticket extends Secret
 				'GROUP BY y')->execute();
 	}
 
-
+	public static function get_price_sum(){
+		return self::select('SUM(price) AS sum')
+			->execute()[0]->sum;
+	}
 }

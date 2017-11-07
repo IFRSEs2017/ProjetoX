@@ -37,6 +37,7 @@ class AdminController extends Controller
 		$this->data['last_month_count'] = $this->range_to_chart($counts, 'last month', 'today');
 		$fature = Ticket::last_month_fature();
 		$this->data['last_month_fature'] = $this->range_to_chart($fature, 'last month', 'today');
+		$this->data['total_sold'] = Ticket::get_price_sum();
 		$this->render('admin/report');
 	}
 
