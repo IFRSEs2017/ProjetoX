@@ -10,8 +10,10 @@ use Pure\Utils\Res;
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		
-		<p>Aqui você pode remover ou editar um ingressos. </p>
+		<h4 class="alert-heading">
+			Olá, <?= $user_name ?>!
+		</h4>
+		<p>Aqui você pode remover ou editar um ingresso. </p>
 	</div>
 	<br />
 	<h2>Ingressos</h2>

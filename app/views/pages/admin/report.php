@@ -3,12 +3,17 @@ namespace App\Views\Pages\Admin;
 use App\Utils\Helpers;
 use Pure\Utils\DynamicHtml;
 ?>
-
-<br />
-<br />
-<br />
-<br />
-<div class="container">
+<div class="container" style="margin-top: 100px;">
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h4 class="alert-heading">
+			Olá, <?= $user_name ?>!
+		</h4>
+		<p>Aqui você pode gerar relatórios e a lista de ingressos da festa. </p>
+	</div>
+	<br />
 	<h3>Informações</h3>
 	<hr class="my-12" />
 	<div class="container">
@@ -104,6 +109,9 @@ use Pure\Utils\DynamicHtml;
 		</div>
 	</div>
 	<br />
+</div>
+<div style="margin-bottom: 5px;">
+
 </div>
 <script>
 var dataFromLastMonthCount = [

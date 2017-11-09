@@ -153,6 +153,7 @@ class TicketController extends Controller
 		{
 			Request::redirect('login/do');
 		}
+		$this->data['user_name'] = $this->session->get('uinfo')->name;
 		$this->data['is_admin'] = true;
 		//Request::redirect('error/index');
 	}
