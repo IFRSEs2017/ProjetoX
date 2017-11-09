@@ -13,18 +13,17 @@ use Pure\Utils\DynamicHtml;
 	<hr class="my-12" />
 	<div class="container">
 		<div class="row">
-            <div class="card" style="width: 20rem; margin-right: 20px;">
-                <div class="card-body">
-                    <h4 class="card-title">Lista de ingressos</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Lista de convivados da festa</h6>
-                    <p class="card-text">Gera uma lista que poderá ser utilizada no dia da festa</p>
-                    <p class="lead">
+			<div class="card" style="width: 20rem; margin: 20px;">
+				<div class="card-body">
+					<h4 class="card-title">Lista de ingressos</h4>
+					<h6 class="card-subtitle mb-2 text-muted">Lista de convivados da festa</h6>
+					<p class="card-text">Gera uma lista que poderá ser utilizada no dia da festa</p>
+					<p class="lead">
 						<a class="btn btn-success btn-lg" href="<?= DynamicHtml::link_to('admin/list_ticket'); ?>" role="button">Gerar lista</a>
-                    </p>
-
-                </div>
-            </div>
-			<div class="card" style="width: 20rem; margin-right: 20px;">
+					</p>
+				</div>
+			</div>
+			<div class="card" style="width: 20rem; margin: 20px;">
 				<div class="card-body">
 					<h4 class="card-title">Receita</h4>
 					<h6 class="card-subtitle mb-2 text-muted">Valor total das vendas</h6>
@@ -36,7 +35,7 @@ use Pure\Utils\DynamicHtml;
 					</h1>
 				</div>
 			</div>
-			<div class="card" style="width: 20rem; margin-right: 20px;">
+			<div class="card" style="width: 20rem;  margin: 20px;">
 				<div class="card-body">
 					<h4 class="card-title">Vendas</h4>
 					<h6 class="card-subtitle mb-2 text-muted">Total de venda de ingressos</h6>
@@ -58,7 +57,7 @@ use Pure\Utils\DynamicHtml;
 	<hr class="my-12" />
 	<div class="container">
 		<div class="row">
-			<div class="card" style="width: 20rem; margin-right: 20px;">
+			<div class="card" style="width: 20rem; margin: 20px;">
 				<div class="card-body">
 					<h4 class="card-title">Vendas por dia</h4>
 					<h6 class="card-subtitle mb-2 text-muted">Relatório de vendas por dia</h6>
@@ -69,7 +68,7 @@ use Pure\Utils\DynamicHtml;
 
 				</div>
 			</div>
-			<div class="card" style="width: 20rem; margin-right: 20px;">
+			<div class="card" style="width: 20rem; margin: 20px;">
 				<div class="card-body">
 					<h4 class="card-title">Vendas por lote</h4>
 					<h6 class="card-subtitle mb-2 text-muted">Relatório de vendas por lote</h6>
@@ -80,7 +79,7 @@ use Pure\Utils\DynamicHtml;
 
 				</div>
 			</div>
-			<div class="card" style="width: 20rem; margin-right: 20px;">
+			<div class="card" style="width: 20rem; margin: 20px;">
 				<div class="card-body">
 					<h4 class="card-title">Vendas por vendedor</h4>
 					<h6 class="card-subtitle mb-2 text-muted">Relatório de vendas por vendedor</h6>
@@ -93,19 +92,19 @@ use Pure\Utils\DynamicHtml;
 			</div>
 		</div>
 	</div>
-
-		<br />
-		<h3>Gráficos do mês</h3>
-		<hr class="my-12" />
-		<div class="row">
-			<div class="col-md">
-				<div id="last_mount_ticket_count"></div>
-			</div>
-			<div class="col-md">
-				<div id="last_mount_ticket_fature"></div>
-			</div>
+	<br />
+	<h3>Gráficos do mês</h3>
+	<hr class="my-12" />
+	<div class="row" style=" margin: 20px;">
+		<div class="col-md">
+			<div id="last_mount_ticket_count"></div>
+		</div>
+		<div class="col-md">
+			<div id="last_mount_ticket_fature"></div>
 		</div>
 	</div>
+	<br />
+</div>
 <script>
 var dataFromLastMonthCount = [
     {
