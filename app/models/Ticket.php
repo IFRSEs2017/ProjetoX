@@ -45,8 +45,33 @@ class Ticket extends Secret
 				'GROUP BY y')->execute();
 	}
 
+	public static function per_day() {
+		return self::build('SELECT date(`ticket`.`created`) AS date, COUNT(`ticket`.`id`) AS count, SUM(`ticket`.`price`) AS price ' .
+				'FROM `ticket` ' .
+				'GROUP BY date')
+			->execute();
+	}
+
+	public static function per_user() {
+		return self::build('SELECT u.*, SUM(t.`price`) AS sold, COUNT(t.`id`) AS count FROM `ticket` AS t JOIN `user` AS u ' .
+				'ON u.`id` = t.`seller` '.
+				'GROUP BY u.id  ')
+			->execute();
+	}
+
 	public static function get_price_sum(){
 		return self::select('SUM(price) AS sum')
 			->execute()[0]->sum;
+	}
+
+	public static function get_price_sum_from($lot_id){
+		return self::select('SUM(price) AS sum')
+			->where(['lot' => $lot_id])
+			->execute()[0]->sum;
+	}
+
+	public static function get_count() {
+		return self::select('COUNT(*) AS count')
+			->execute()[0]->count;
 	}
 }

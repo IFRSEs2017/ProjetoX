@@ -23,7 +23,7 @@ class TicketController extends Controller
 	public function list_action()
 	{
 		$tickets = Ticket::select()
-			->order_by(['created' => 'ASC'])
+			->order_by(['created' => 'DESC'])
 			->execute();
 		$this->data['list'] = $tickets;
 		$this->render('ticket/list');

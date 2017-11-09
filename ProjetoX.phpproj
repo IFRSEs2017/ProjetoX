@@ -72,6 +72,10 @@
     <Compile Include="app\utils\mail\SMTP.php" />
     <Compile Include="app\views\layouts\default.php" />
     <Compile Include="app\views\pages\admin\dashboard.php" />
+    <Compile Include="app\views\pages\admin\report_per_day.php" />
+    <Compile Include="app\views\pages\admin\report_per_seller.php" />
+    <Compile Include="app\views\pages\admin\report_per_lot.php" />
+    <Compile Include="app\views\pages\admin\list_ticket.php" />
     <Compile Include="app\views\pages\ticket\delete.php" />
     <Compile Include="app\views\pages\ticket\list.php" />
     <Compile Include="app\views\pages\ticket\update.php" />
@@ -180,6 +184,8 @@
     <Content Include="app\assets\scripts\bootstrap-datepicker.pt-BR.min.js" />
     <Content Include="app\assets\scripts\bootstrap.js" />
     <Content Include="app\assets\scripts\bootstrap.min.js" />
+    <Content Include="app\assets\scripts\jspdf.min.js" />
+    <Content Include="app\assets\scripts\jspdf.plugin.autotable.min.js" />
     <Content Include="app\assets\scripts\plotly-latest.min.js" />
     <Content Include="app\assets\stylesheets\font-awesome.css" />
     <Content Include="app\assets\stylesheets\font-awesome.min.css" />

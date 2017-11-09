@@ -6,6 +6,7 @@ use Pure\Utils\Auth;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Utils\Helpers;
+use App\Models\Lot;
 
 /**
  * Controller principal
@@ -38,7 +39,53 @@ class AdminController extends Controller
 		$fature = Ticket::last_month_fature();
 		$this->data['last_month_fature'] = $this->range_to_chart($fature, 'last month', 'today');
 		$this->data['total_sold'] = Ticket::get_price_sum();
+		$this->data['total_count'] = Ticket::get_count();
 		$this->render('admin/report');
+	}
+
+	public function list_ticket_action() {
+		$this->data['list'] = Ticket::select("*")
+					->execute();
+		$lots = Lot::select()
+			->order_by(['start' => 'ASC'])
+			->execute();
+		for($i = 0; $i < count($lots); $i++) {
+			$lots[$i]->number = $i + 1;
+		}
+		foreach($this->data['list'] as $item) {
+			for($i = 0; $i < count($lots); $i++) {
+				if ($lots[$i]->id == $item->lot) {
+					$item->lot_number = $lots[$i]->number;
+					break;
+				}
+			}
+
+		}
+		$this->render('admin/list_ticket');
+	}
+
+	public function report_per_day_action() {
+		$this->data['list'] = Ticket::per_day();
+		$this->render('admin/report_per_day');
+	}
+
+	public function report_per_lot_action() {
+		$this->data['list'] = Lot::select()
+					->order_by(['start' => 'ASC'])
+					->execute();
+		for($i = 0; $i < count($this->data['list']); $i++){
+			$item = $this->data['list'][$i];
+			$item->number = $i + 1;
+			$sold = Ticket::count($item->id);
+			$item->price = Ticket::get_price_sum_from($item->id);
+			$item->sold = $sold;
+		}
+		$this->render('admin/report_per_lot');
+	}
+
+	public function report_per_seller_action() {
+		$this->data['list'] = Ticket::per_user();
+		$this->render('admin/report_per_seller');
 	}
 
 	/**
