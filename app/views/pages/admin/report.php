@@ -111,7 +111,6 @@ use Pure\Utils\DynamicHtml;
 	<br />
 </div>
 <div style="margin-bottom: 5px;">
-
 </div>
 <script>
 var dataFromLastMonthCount = [
