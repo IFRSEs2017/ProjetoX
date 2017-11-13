@@ -49,6 +49,10 @@ use Pure\Utils\Res;
 					R$ <?= number_format((float)$ticket->price, 2, ',', ''); ?> 
 				</td>
 				<td>
+					<a href="<?= DynamicHtml::link_to('ticket/send_again/' . $ticket->id) ?>" class="btn btn-secondary btn-sm">
+						Gerar novo ingresso
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+					</a>
 					<a href="<?= DynamicHtml::link_to('ticket/update/' . $ticket->id) ?>" class="btn btn-primary btn-sm">
 						Editar
 						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>

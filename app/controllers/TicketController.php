@@ -7,7 +7,9 @@ use App\Models\Ticket;
 use App\Utils\Helpers;
 use Pure\Db\Database;
 use App\Utils\Mailer;
-
+use Pure\Utils\Hash;
+use Pure\Utils\DynamicHtml;
+use App\Controllers\SellerController;
 
 /**
  * TicketController short summary.
@@ -72,6 +74,60 @@ class TicketController extends Controller
 		$this->render('ticket/delete');
 	}
 
+	public function send_again_action($id) 
+	{
+		$ticket = Ticket::find(['id' => intval($id)]);
+		if ($ticket) {
+			if (Request::is_POST()){
+				$db = Database::get_instance();
+				try {
+					$db->begin();
+					$ticket_secret = Hash::random_word(64);
+					$new = new Ticket($ticket_secret);
+					$new->id = $ticket->id;
+					$new->lot = $ticket->lot;
+					$new->seller = $ticket->seller;
+					$new->price = $ticket->price;
+					$new->owner_name = $ticket->owner_name;
+					$new->owner_email = $ticket->owner_email;
+					$new->owner_cpf = $ticket->owner_cpf;
+					Ticket::save($new);
+					$code = SellerController::create_qrcode($ticket_secret, $new->password, $new->id);
+					if(PURE_ENV == 'development') {
+						echo '<br><br><br>' .
+						DynamicHtml::link_to('ticket/validate&t=' .
+						$ticket_secret .
+						'&i=' . $id);
+					} else {
+						Mailer::send_ticket(
+							$ticket->owner_name,
+							$ticket->owner_email,
+							Res::str('app_title') .
+							' - Seu ingresso virtual',
+							$code);
+					}
+					$this->data['message'] = 'Um novo ingresso foi gerado com sucesso!' .
+					'<br> Confira o e-mail para confirmar a venda:';
+					$this->data['email'] = $ticket->owner_email;
+					$this->data['qrcode'] = DynamicHtml::link_to('app/assets/images/' . $code . '.png');
+					$this->render('seller/sold');
+					$db->commit();
+					exit();
+				}
+				catch(\Exception $e) {
+					$db->rollback();
+					Mailer::bug_report($e);
+					Request::redirect('error/unknown');
+				}
+			} else {
+				$this->data['ticket']= $ticket;
+				$this->render('ticket/send_again');
+			}
+			exit();
+		}
+		Request::redirect('error/index');
+	}
+
 
 	public function update_action($id)
 	{
@@ -99,13 +155,18 @@ class TicketController extends Controller
 				Helpers::cpf_validation($data['owner_cpf']) ?
 					$ticket_db->owner_cpf = $data['owner_cpf'] :
 					array_push($errors, 'CPF Inválido');
+				$other = Ticket::find(['owner_cpf' => $data['owner_cpf']]);
+				if ($other) {
+					array_push($errors,
+						'Já foi vendido um ingresso para o CPF ' .
+						$data['owner_cpf'] . '.');
+				}
 
 				// Caso exista algum erro no formulário
 				if(count($errors) > 0){
 					$this->data['errors'] = $errors;
 					$this->data['title'] = "Ops!";
 					$this->data['class'] = "class = 'alert alert-danger alert-dismissible fade show'";
-					$this->data['user'] = $user_db;
 					$this->render('ticket/update');
 					exit();
 				}

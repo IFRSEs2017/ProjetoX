@@ -90,7 +90,7 @@ class SellerController extends Controller
 				try {
 					$db->begin();
 					$id = Ticket::save($ticket);
-					$code = $this->create_qrcode($ticket_secret, $ticket->password, $id);
+					$code = self::create_qrcode($ticket_secret, $ticket->password, $id);
 					// Envia e-mail para o usuário
 					if(PURE_ENV == 'development') {
 						echo '<br><br><br>' .
@@ -162,7 +162,7 @@ class SellerController extends Controller
 	 * @param mixed $id id do ticket
 	 * @return string
 	 */
-	private function create_qrcode($secret, $hash, $id){
+	public static function create_qrcode($secret, $hash, $id){
 		include(BASE_PATH . 'app/utils/phpqrcode/qrlib.php');
 		$url = DynamicHtml::link_to('ticket/validate&t=' . $secret . '&i=' . $id);
 		$filename = BASE_PATH . 'app/assets/images/' . $hash . '.png';
