@@ -82,6 +82,15 @@ class Helpers
 		return false;
 	}
 
+	public static function name_validation($string){
+		if(strlen($string) > 2){
+			return (!preg_match('/^[a-zA-Z]*$/', $string));
+		}
+		return false;
+	}
+
+
+	
 	public static function email_validation($email){
 		return (filter_var($email, FILTER_VALIDATE_EMAIL));
 	}

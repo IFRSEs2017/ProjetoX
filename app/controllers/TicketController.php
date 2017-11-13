@@ -22,12 +22,61 @@ class TicketController extends Controller
 
 	public function list_action()
 	{
+		if (Request::is_POST()){
+			$data = $this->params->unpack('POST', ['search']);
+			
+			if((Helpers::string_validation($data['search'])) && (!Helpers::rg_validation($data['search'])))
+			{
+				$ticket_db = Ticket::select()
+				->where(['owner_name' => $data['search']])
+				->execute();
+				if($ticket_db)
+				{
+					$this->data['search_result'] = $ticket_db;
+				}
+				else
+				{
+					$this->data['not_found_result'] = $ticket_db;									
+				}
+			}
+			else if(Helpers::email_validation($data['search']))
+			{
+				
+				$ticket_db = Ticket::select()
+					->where(['owner_email' => $data['search']])
+					->execute();
+					if($ticket_db)
+					{
+						$this->data['search_result'] = $ticket_db;
+					}
+					else
+					{
+						$this->data['not_found_result'] = $ticket_db;									
+					}
+			}
+			else if(Helpers::cpf_validation($data['search']))
+			{
+				
+				$ticket_db = Ticket::select()
+					->where(['owner_cpf' => $data['search']])
+					->execute();
+					if($ticket_db)
+					{
+						$this->data['search_result'] = $ticket_db;
+					}
+					else
+					{
+						$this->data['not_found_result'] = $ticket_db;									
+					}
+			}
+			
+		}
 		$tickets = Ticket::select()
-			->order_by(['created' => 'DESC'])
+			->order_by(['created' => 'ASC'])
 			->execute();
 		$this->data['list'] = $tickets;
 		$this->render('ticket/list');
-
+		
 	}
 
 	public function insert_action(){}
@@ -46,7 +95,7 @@ class TicketController extends Controller
 						->where(['id' => $ticket->id])
 						->execute();
 					$db->commit();
-					Request::redirect('ticket/list');
+					Request::redirect('ticket/list');				
 				}
 				catch(\Exception $e)
 				{
@@ -99,7 +148,7 @@ class TicketController extends Controller
 				Helpers::cpf_validation($data['owner_cpf']) ?
 					$ticket_db->owner_cpf = $data['owner_cpf'] :
 					array_push($errors, 'CPF Inválido');
-
+				
 				// Caso exista algum erro no formulário
 				if(count($errors) > 0){
 					$this->data['errors'] = $errors;
@@ -146,15 +195,19 @@ class TicketController extends Controller
 		Request::redirect('ticket/list');
 	}
 
-
+	/**
+	 * Controller ainda não utilizado
+	 */
 	public function before()
 	{
 		if (!Auth::is_authenticated())
 		{
 			Request::redirect('login/do');
 		}
+		
 		$this->data['user_name'] = $this->session->get('uinfo')->name;
 		$this->data['is_admin'] = true;
-		//Request::redirect('error/index');
+		
+
 	}
 }

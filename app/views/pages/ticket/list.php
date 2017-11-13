@@ -16,10 +16,91 @@ use Pure\Utils\Res;
 		<p>Aqui você pode remover ou editar um ingresso. </p>
 	</div>
 	<br />
+
+	<form action="<?= DynamicHtml::link_to('ticket/list/') ?>" method="POST">
+		<label for="search">
+				<h2>Pesquisar</h2> 
+			</label>
+		<div class="form-group">
+			<p>Digite o nome completo, email ou cpf.</p>
+			<input type="text" class="form-control" name="search" placeholder="" value="" />
+		</div>
+		<button type="submit" class="btn btn-success">Buscar</button>
+	</form>
+
+	<?php if(isset($not_found_result)):?>
+		<div class='alert alert-warning'>
+			<p>Nenhum resultado encontrado.</p>
+		</div>
+	<?php endif; ?>
+
+	<?php if(isset($error_result)):?>
+	<div class = 'alert alert-danger alert-dismissible fade show' role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>
+			Ops!		</strong>Dados Inválidos		<br />
+	</div>
+	<?php endif; ?>
+
+
+	<?php if(isset($search_result)):?>
+	<div class='alert alert-success'>
+	<h2>Resultado</h2>
+	<br />
+	<table class="table table-responsive">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>E-mail</th>
+				<th>CPF</th>
+				<th>Valor da venda</th>
+				<th>Opções</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach($search_result as $ticket): ?>
+		<tr class="<?= $ticket->self ? 'table-success' : ''; ?>">
+				<td>
+					<?= $ticket->owner_name; ?>
+				</td>
+
+				<td>
+					<?= $ticket->owner_email; ?>
+				</td>
+
+				<td>
+					<?= Helpers::format_cpf($ticket->owner_cpf); ?>
+				</td>
+				<td>
+					R$ <?= number_format((float)$ticket->price, 2, ',', ''); ?> 
+				</td>
+				<td>
+					<a href="<?= DynamicHtml::link_to('ticket/update/' . $ticket->id) ?>" class="btn btn-primary btn-sm">
+						Editar
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					</a>
+					<?php if(!$user->self): ?>
+					<a href="<?= DynamicHtml::link_to('ticket/delete/' . $ticket->id) ?>" class="btn btn-danger btn-sm">
+						Excluir
+						<i class="fa fa-trash-o" aria-hidden="true"></i>
+					</a>
+					<?php endif; ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
+
+
+	</table>
+	</div>
+	<?php endif; ?>
+	
+	<br>
 	<h2>Ingressos</h2>
 	<br />
 
-	
 	<?php if(isset($list)): ?>
 	<table class="table table-responsive">
 		<thead>
