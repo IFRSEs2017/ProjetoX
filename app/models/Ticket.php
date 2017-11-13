@@ -16,6 +16,7 @@ class Ticket extends Secret
 	public $owner_name;
 	public $owner_email;
 	public $owner_cpf;
+	public $validated;
 
 	public function __construct($secret)
 	{

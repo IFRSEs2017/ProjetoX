@@ -20,7 +20,7 @@ use Pure\Utils\Res;
 	</h1>
 	<?php if($send): ?>
 	<h5>
-		Não esqueça de verificar sua caixa de entrada e spam.
+		NÃ£o esqueÃ§a de verificar sua caixa de entrada e spam.
 	</h5>
 	<?php endif; ?>
 	<br />

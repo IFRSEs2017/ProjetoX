@@ -257,6 +257,12 @@ class LotController extends Controller
 		{
 			Request::redirect('login/do');
 		}
+
+		if (!User::is_admin()) 
+		{
+			Request::redirect('error/index');
+		}
+
 		$this->data['user_name'] = $this->session->get('uinfo')->name;
 		$this->data['is_admin'] = true;
 	}

@@ -7,6 +7,8 @@ use App\Models\Ticket;
 use App\Utils\Helpers;
 use Pure\Db\Database;
 use App\Utils\Mailer;
+use Pure\Routes\Route;
+use App\Models\User;
 
 
 /**
@@ -146,13 +148,64 @@ class TicketController extends Controller
 		Request::redirect('ticket/list');
 	}
 
+	public function validate_action()
+	{
+		if (Request::is_POST()){
+			$code = $this->params->unpack('POST', ['secret', 'ticket']);
+			if ($code) {
+				$ticket = Ticket::find(['id' => intval($code['ticket'])]);
+				if(Ticket::compare($ticket, $code['secret'])) {
+					$ticket->validated = true;
+					$db = Database::get_instance();
+					try{
+						$db->begin();
+						Ticket::save($ticket);	
+						$db->commit();
+						Request::redirect('ticket/validate&t=' . $code['secret'] . '&i=' . $code['ticket']);
+					}
+					catch(\Exception $e)
+					{
+						$db->rollback();
+						Mailer::bug_report($e);
+						Request::redirect('error/unknown');
+					}
+				}
+			}
+		} else {
+			$code = $this->params->unpack('GET', ['t', 'i']);
+			if ($code) {
+				$ticket = Ticket::find(['id' => intval($code['i'])]);
+				if(Ticket::compare($ticket, $code['t'])) {
+					$this->data['ticket'] = $ticket;
+					$this->data['secret'] = $code['t'];
+					$this->data['view'] = Auth::is_authenticated() && User::is_admin();
+					if ($this->data['view']) {
+						$this->data['is_admin'] = true;
+					}
+					$this->render('ticket/validate');
+					exit();
+				}
+			} 
+		}
+		Request::redirect('error/index');
+	}
 
 	public function before()
 	{
+		if (Request::is_to([new Route('ticket','validate')])) {
+			return;
+		}
+
 		if (!Auth::is_authenticated())
 		{
 			Request::redirect('login/do');
 		}
+
+		if (!User::is_admin()) 
+		{
+			Request::redirect('error/index');
+		}
+
 		$this->data['user_name'] = $this->session->get('uinfo')->name;
 		$this->data['is_admin'] = true;
 		//Request::redirect('error/index');
