@@ -13,15 +13,15 @@ use Pure\Utils\Res;
     <a type="button" href="<?= DynamicHtml::link_to('ticket/list') ?>" class="btn btn-primary">Voltar</a>
 	<?php else: ?>
 	<div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading">Deletar Ingresso</h4>
+        <h4 class="alert-heading">Excluir ingresso</h4>
 		<p>
-			<strong>Cuidado!</strong> Você tem certeza que deseja deletar o ingresso de  "<?= $ticket->owner_name ?>"?
+			<strong>Cuidado!</strong> Você tem certeza que deseja excluir o ingresso de  "<?= $ticket->owner_name ?>"?
 		</p>
 		<form action="<?= DynamicHtml::link_to('ticket/delete/' . $ticket->id) ?>" method="POST">
 			<input type="number" value="<?= $ticket->id ?>" name="id_to_delete" hidden/>
 			<div class="form-group" style="text-align: right">
 				<a type="button" href="<?= DynamicHtml::link_to('ticket/list') ?>" class="btn btn-primary">Voltar</a>
-				<button type="submit" class="btn btn-danger" style="cursor: pointer;">Deletar</button>
+				<button type="submit" class="btn btn-danger" style="cursor: pointer;">Excluir</button>
 			</div>
 		</form>
 	</div>

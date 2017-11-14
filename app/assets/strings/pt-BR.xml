@@ -21,7 +21,7 @@
     <string name="menu_dashboard" value="Painel de Controle" />
     <string name="menu_edit" value="Editar" />
     <string name="menu_insert" value="Inserir" />
-    <string name="menu_delete" value="Deletar" />
+    <string name="menu_delete" value="Excluir" />
     <string name="menu_list" value="Listar" />
     <string name="menu_report" value="Relatorios" />
 

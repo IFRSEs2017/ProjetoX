@@ -37,7 +37,7 @@ use Pure\Utils\Res;
 
 <div class='container'>
 	<br />
-	<h2>Atualizar Ingresso</h2>
+	<h2>Atualizar ingresso</h2>
 	<br />
 	<form action="<?= DynamicHtml::link_to('ticket/update/' . $ticket->id) ?>" method="POST">
 		<div class="form-group">

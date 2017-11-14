@@ -43,6 +43,9 @@ class AdminController extends Controller
 		$this->render('admin/report');
 	}
 
+	/**
+	 * Lista todos os tickets para o administrador
+	 */
 	public function list_ticket_action() {
 		$this->data['list'] = Ticket::select("*")
 					->execute();
@@ -64,11 +67,17 @@ class AdminController extends Controller
 		$this->render('admin/list_ticket');
 	}
 
+	/**
+	 * Gera relatório por dia
+	 */
 	public function report_per_day_action() {
 		$this->data['list'] = Ticket::per_day();
 		$this->render('admin/report_per_day');
 	}
 
+	/**
+	 * Gera relatório por lote
+	 */
 	public function report_per_lot_action() {
 		$this->data['list'] = Lot::select()
 					->order_by(['start' => 'ASC'])
@@ -83,6 +92,9 @@ class AdminController extends Controller
 		$this->render('admin/report_per_lot');
 	}
 
+	/**
+	 * Gera relatório por vendedor
+	 */
 	public function report_per_seller_action() {
 		$this->data['list'] = Ticket::per_user();
 		$this->render('admin/report_per_seller');
@@ -106,6 +118,13 @@ class AdminController extends Controller
 		$this->data['is_admin'] = true;
 	}
 
+	/**
+	 * Plota valores em um gráfico por espaço de tempo
+	 * @param mixed $obj_arr valores
+	 * @param mixed $start inicio
+	 * @param mixed $end fim
+	 * @return array
+	 */
 	private function range_to_chart($obj_arr, $start, $end){
 		$array = [];
 		$range = Helpers::date_range(

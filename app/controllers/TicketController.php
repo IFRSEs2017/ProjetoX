@@ -12,6 +12,7 @@ use App\Models\User;
 use Pure\Utils\Hash;
 use Pure\Utils\DynamicHtml;
 use App\Controllers\SellerController;
+use Pure\Utils\Res;
 
 /**
  * TicketController short summary.
@@ -24,67 +25,57 @@ use App\Controllers\SellerController;
 class TicketController extends Controller
 {
 
+	/**
+	 * Lista tickets
+	 */
 	public function list_action()
 	{
 		if (Request::is_POST()){
 			$data = $this->params->unpack('POST', ['search']);
-			
 			if((Helpers::string_validation($data['search'])) && (!Helpers::rg_validation($data['search'])))
 			{
 				$ticket_db = Ticket::select()
-				->where(['owner_name' => $data['search']])
-				->execute();
-				if($ticket_db)
-				{
-					$this->data['search_result'] = $ticket_db;
-				}
-				else
-				{
-					$this->data['not_found_result'] = $ticket_db;									
-				}
+					->where_like(['owner_name' => '%' . $data['search'] . '%'])
+					->execute();
+				$ticket_db ? $this->data['search_result'] = $ticket_db : $this->data['not_found_result'] = true;
 			}
 			else if(Helpers::email_validation($data['search']))
 			{
-				
+
 				$ticket_db = Ticket::select()
-					->where(['owner_email' => $data['search']])
+					->where_like(['owner_email' =>  '%' . $data['search'] . '%'])
 					->execute();
-					if($ticket_db)
-					{
-						$this->data['search_result'] = $ticket_db;
-					}
-					else
-					{
-						$this->data['not_found_result'] = $ticket_db;									
-					}
+				$ticket_db ? $this->data['search_result'] = $ticket_db : $this->data['not_found_result'] = true;
 			}
 			else if(Helpers::cpf_validation($data['search']))
 			{
-				
+
 				$ticket_db = Ticket::select()
-					->where(['owner_cpf' => $data['search']])
+					->where_like(['owner_cpf' =>  '%' . $data['search'] . '%'])
 					->execute();
-					if($ticket_db)
-					{
-						$this->data['search_result'] = $ticket_db;
-					}
-					else
-					{
-						$this->data['not_found_result'] = $ticket_db;									
-					}
+				$ticket_db ? $this->data['search_result'] = $ticket_db : $this->data['not_found_result'] = true;
+			} else {
+				$this->data['not_found_result'] = true;
 			}
-			
 		}
 		$tickets = Ticket::select()
 			->order_by(['created' => 'ASC'])
 			->execute();
 		$this->data['list'] = $tickets;
 		$this->render('ticket/list');
-		
 	}
 
-	public function insert_action(){}
+	/**
+	 * Insere um ticket (não utilizando)
+	 */
+	public function insert_action(){
+		Request::redirect('error/index');
+	}
 
+	/**
+	 * Exclui ingresso do banco de dados
+	 * @param mixed $id
+	 */
 	public function delete_action($id)
 	{
 		if (Request::is_POST())
@@ -99,7 +90,7 @@ class TicketController extends Controller
 						->where(['id' => $ticket->id])
 						->execute();
 					$db->commit();
-					Request::redirect('ticket/list');				
+					Request::redirect('ticket/list');
 				}
 				catch(\Exception $e)
 				{
@@ -125,7 +116,11 @@ class TicketController extends Controller
 		$this->render('ticket/delete');
 	}
 
-	public function send_again_action($id) 
+	/**
+	 * Gera um novo ingresso e reenvia
+	 * @param mixed $id
+	 */
+	public function send_again_action($id)
 	{
 		$ticket = Ticket::find(['id' => intval($id)]);
 		if ($ticket) {
@@ -179,7 +174,10 @@ class TicketController extends Controller
 		Request::redirect('error/index');
 	}
 
-
+	/**
+	 * Atualiza ingresso
+	 * @param mixed $id
+	 */
 	public function update_action($id)
 	{
 		// Realiza a atualização de pontos de venda/usuário
@@ -258,6 +256,9 @@ class TicketController extends Controller
 		Request::redirect('ticket/list');
 	}
 
+	/**
+	 * Valida (consome) ingresso
+	 */
 	public function validate_action()
 	{
 		if (Request::is_POST()){
@@ -269,7 +270,7 @@ class TicketController extends Controller
 					$db = Database::get_instance();
 					try{
 						$db->begin();
-						Ticket::save($ticket);	
+						Ticket::save($ticket);
 						$db->commit();
 						Request::redirect('ticket/validate&t=' . $code['secret'] . '&i=' . $code['ticket']);
 					}
@@ -295,7 +296,7 @@ class TicketController extends Controller
 					$this->render('ticket/validate');
 					exit();
 				}
-			} 
+			}
 		}
 		Request::redirect('error/index');
 	}
@@ -311,14 +312,12 @@ class TicketController extends Controller
 			Request::redirect('login/do');
 		}
 
-		if (!User::is_admin()) 
+		if (!User::is_admin())
 		{
 			Request::redirect('error/index');
 		}
 
 		$this->data['user_name'] = $this->session->get('uinfo')->name;
 		$this->data['is_admin'] = true;
-		
-
 	}
 }

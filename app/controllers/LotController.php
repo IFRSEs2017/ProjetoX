@@ -8,6 +8,7 @@ use App\Models\Lot;
 use Pure\Db\Database;
 use App\Utils\Mailer;
 use App\Models\Ticket;
+use App\Models\User;
 
 /**
  * Controller que gerencia ações de lotes de ingressos
