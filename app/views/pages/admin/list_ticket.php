@@ -48,7 +48,7 @@ use App\Utils\Helpers;
 					<?= $item->owner_email ?>
 				</td>
 				<td>
-					<?= Helpers::date_format($item->created, 'H:i')  . ' de ' . Helpers::date_format($item->created) ?>
+					<?= Helpers::date_format($item->created) ?>
 				</td>
 			</tr><?php endforeach; ?>
         </tbody>
